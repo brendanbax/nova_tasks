@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+import { ADD_TASK } from '@/store/type'
 import { Component, Vue } from 'vue-property-decorator'
 import Task from '@/classes/Task'
 import ITask from '@/interfaces/Task'
@@ -16,8 +17,7 @@ export default class extends Vue {
       title: 'Task Title'
     }
     let newTask = new Task(taskDetails)
-    console.log(newTask)
-    newTask.body = 'Bananas'
+    this.$store.commit(ADD_TASK, newTask)
     return newTask
   }
 }
