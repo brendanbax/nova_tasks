@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 // Views
-import Home from '../views/Home.vue'
-import List from '../views/List.vue'
-import Calendar from '../views/Calendar.vue'
-import New from '../views/New.vue'
+import Home from '@/views/Home.vue'
+import List from '@/views/List.vue'
+import Calendar from '@/views/Calendar.vue'
+import Alerts from '@/views/Alerts.vue'
+import New from '@/views/New.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes: Array<RouteConfig> = [
     path: '/calendar',
     name: 'Calendar',
     component: Calendar
+  },
+  {
+    path: '/alerts',
+    name: 'Alerts',
+    component: Alerts
   }
   /*{
     path: '/about',
