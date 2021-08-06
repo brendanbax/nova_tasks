@@ -3,7 +3,7 @@ export interface ITask {
   title: string
   body?: string
   creationDate?: Date
-  dueDate?: unknown
+  dueDate?: Date | null
   tags?: Array<string>
   status?: string
 }
