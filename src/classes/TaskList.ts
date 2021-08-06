@@ -1,4 +1,4 @@
-import { TaskModel } from './Task'
+import { TaskModel, Task } from './Task'
 
 interface SummaryModel {
   total: number
@@ -10,6 +10,25 @@ class TaskList {
     return tasks.findIndex((el: TaskModel) => {
       return el.id === id
     })
+  }
+
+  static compareTaskDates(key: string, order = 'asc') {
+    return function innerSort(a: TaskModel, b: TaskModel): number {
+      if (!Object.hasOwnProperty.call(a, key) || !Object.hasOwnProperty.call(b, key)) {
+        return 0
+      }
+
+      const varA: Date | any = a[key as keyof Task]
+      const varB: Date | any = b[key as keyof Task]
+
+      let comparison = 0
+      if (varA > varB) {
+        comparison = 1
+      } else if (varA < varB) {
+        comparison = -1
+      }
+      return order === 'desc' ? comparison * -1 : comparison
+    }
   }
 
   static getTaskById(tasks: Array<TaskModel>, id: string): TaskModel {
@@ -41,19 +60,37 @@ class TaskList {
   }
 
   static filterByStatus(tasks: Array<TaskModel>, status: string): Array<TaskModel> {
-    return tasks
+    return tasks.filter((el: TaskModel) => {
+      return el.status === status
+    })
   }
 
   static filterByTags(tasks: Array<TaskModel>, tags: Array<string>): Array<TaskModel> {
-    return tasks
+    const matches: Array<TaskModel> = []
+    for (const tag of tags) {
+      matches.push(
+        ...tasks.filter((el: TaskModel) => {
+          return el.tags?.includes(tag)
+        })
+      )
+    }
+    return matches
   }
 
   static sortByCreated(tasks: Array<TaskModel>, direction: string): Array<TaskModel> {
-    return tasks
+    const options = ['asc', 'desc']
+    if (!options.includes(direction)) {
+      return tasks
+    }
+    return tasks.slice().sort(this.compareTaskDates('creationDate', direction))
   }
 
   static sortByDue(tasks: Array<TaskModel>, direction: string): Array<TaskModel> {
-    return tasks
+    const options = ['asc', 'desc']
+    if (!options.includes(direction)) {
+      return tasks
+    }
+    return tasks.slice().sort(this.compareTaskDates('dueDate', direction))
   }
 }
 
