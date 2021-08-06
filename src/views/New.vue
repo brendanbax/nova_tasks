@@ -7,7 +7,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { TaskModel, Task } from '@/classes/Task'
+import { Task } from '@/classes/Task'
+import { ITask } from '@/interfaces/ITask'
 import { ADD_TASK } from '@/store/actionTypes'
 
 export default Vue.extend({
@@ -23,7 +24,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    taskObject(): TaskModel {
+    taskObject(): ITask {
       return {
         title: this.title,
         body: this.body,
@@ -34,7 +35,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    addTask(): TaskModel {
+    addTask(): ITask {
       let newTask = new Task(this.taskObject)
       this.$store.dispatch(ADD_TASK, newTask)
       return newTask

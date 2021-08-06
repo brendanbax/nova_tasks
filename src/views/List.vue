@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { TaskModel, Task } from '@/classes/Task'
+import { Task } from '@/classes/Task'
+import { ITask } from '@/interfaces/ITask'
 import { ADD_TASK, UPDATE_TASK } from '@/store/actionTypes'
 import Vue from 'vue'
 
@@ -18,13 +19,13 @@ export default Vue.extend({
     return {}
   },
   computed: {
-    taskList(): Array<TaskModel> {
+    taskList(): Array<ITask> {
       return this.$store.state.tasks
     }
   },
   methods: {
     seedTask() {
-      let sample: TaskModel = {
+      let sample: ITask = {
         id: '123',
         title: 'Seed',
         body: 'Seed'
@@ -33,7 +34,7 @@ export default Vue.extend({
     },
     updateTask() {
       let taskID = this.$store.state.tasks[0].id
-      let sample: TaskModel = {
+      let sample: ITask = {
         id: taskID,
         title: 'Update',
         body: 'Update'
