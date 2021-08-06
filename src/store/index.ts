@@ -1,26 +1,31 @@
 import Vue from 'vue'
-import Vuex, { StoreOptions } from 'vuex'
-import { ADD_TASK } from '@/store/type'
-import IRootState from '@/interfaces/RootState'
+import Vuex from 'vuex'
+import { TaskModel } from '@/classes/Task'
+import TaskList from '@/classes/TaskList'
+import { ADD_TASK, UPDATE_TASK } from '@/store/actionTypes'
 
 Vue.use(Vuex)
 
-const store: StoreOptions<IRootState> = {
+export default new Vuex.Store({
   state: {
-    tasks: []
+    tasks: Array<TaskModel>()
   },
   mutations: {
-    [ADD_TASK](state, payload) {
-      state.tasks.push(payload)
+    addTask(state, task: TaskModel) {
+      state.tasks.push(task)
+    },
+    updateTask(state, task: TaskModel) {
+      state.tasks = TaskList.updateTasks(state.tasks, task)
     }
   },
   actions: {
-    addTask(context, task) {
-      context.commit(ADD_TASK, task)
+    [ADD_TASK](context, task: TaskModel) {
+      context.commit('addTask', task)
+    },
+    [UPDATE_TASK](context, task: TaskModel) {
+      context.commit('updateTask', task)
     }
   }
   // modules: {}
   // don't need modules for now, so ignoring
-}
-
-export default new Vuex.Store<IRootState>(store)
+})
