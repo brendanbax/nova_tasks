@@ -3,6 +3,7 @@
     <h1>List View</h1>
     <button @click="seedTask">Seed Task</button>
     <button @click="updateTask">Update Task</button>
+    <button @click="getSortedTasks">Fetch Tasks</button>
   </div>
 </template>
 
@@ -16,7 +17,9 @@ export default Vue.extend({
   name: 'TaskList',
   props: {},
   data() {
-    return {}
+    return {
+      sortedTasks: []
+    }
   },
   computed: {
     taskList(): Array<ITask> {
@@ -40,6 +43,13 @@ export default Vue.extend({
         body: 'Update'
       }
       this.$store.dispatch(UPDATE_TASK, sample)
+    },
+    async getSortedTasks() {
+      try {
+        this.sortedTasks = await this.$store.getters.GET_BY_CREATED_DESC
+      } catch (e) {
+        console.log(e.message)
+      }
     }
   }
 })
