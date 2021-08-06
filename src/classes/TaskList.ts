@@ -15,13 +15,13 @@ class TaskList {
         return 0
       }
 
-      const varA: Date | any = a[key as keyof Task]
-      const varB: Date | any = b[key as keyof Task]
+      const varA: unknown = a[key as keyof Task]
+      const varB: unknown = b[key as keyof Task]
 
       let comparison = 0
-      if (varA > varB) {
+      if (Number(varA) > Number(varB)) {
         comparison = 1
-      } else if (varA < varB) {
+      } else if (Number(varA) < Number(varB)) {
         comparison = -1
       }
       return order === 'desc' ? comparison * -1 : comparison
@@ -74,20 +74,20 @@ class TaskList {
     return matches
   }
 
-  static sortByCreated(tasks: Array<ITask>, direction: string): Array<ITask> {
+  static sortByCreated(tasks: Array<ITask>, order: string): Array<ITask> {
     const options = ['asc', 'desc']
-    if (!options.includes(direction)) {
+    if (!options.includes(order)) {
       return tasks
     }
-    return tasks.slice().sort(this.compareTaskDates('creationDate', direction))
+    return tasks.slice().sort(this.compareTaskDates('creationDate', order))
   }
 
-  static sortByDue(tasks: Array<ITask>, direction: string): Array<ITask> {
+  static sortByDue(tasks: Array<ITask>, order: string): Array<ITask> {
     const options = ['asc', 'desc']
-    if (!options.includes(direction)) {
+    if (!options.includes(order)) {
       return tasks
     }
-    return tasks.slice().sort(this.compareTaskDates('dueDate', direction))
+    return tasks.slice().sort(this.compareTaskDates('dueDate', order))
   }
 }
 
