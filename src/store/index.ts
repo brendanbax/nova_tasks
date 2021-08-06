@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import { ITask } from '@/interfaces/ITask'
 import { ISummary } from '@/interfaces/ISummary'
 import TaskList from '@/classes/TaskList'
-import TaskTypes from '@/store/actionTypes'
+import ActionTypes from '@/store/actionTypes'
 
 Vue.use(Vuex)
 
@@ -20,22 +20,40 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    [TaskTypes.ADD_TASK](context, task: ITask) {
+    [ActionTypes.ADD_TASK](context, task: ITask) {
       context.commit('addTask', task)
     },
-    [TaskTypes.UPDATE_TASK](context, task: ITask) {
+    [ActionTypes.UPDATE_TASK](context, task: ITask) {
       context.commit('updateTask', task)
     }
   },
   getters: {
-    [TaskTypes.GET_TASK](state, taskId: string) {
+    [ActionTypes.GET_TASK](state, taskId: string) {
       return TaskList.getTaskById(state.tasks, taskId)
     },
-    [TaskTypes.GET_TASKS](state): Array<ITask> {
+    [ActionTypes.GET_TASKS](state): Array<ITask> {
       return state.tasks
     },
-    [TaskTypes.GET_TASK_SUMMARY](state): Array<ISummary> {
+    [ActionTypes.GET_TASK_SUMMARY](state): Array<ISummary> {
       return TaskList.getStatusSummary(state.tasks)
+    },
+    [ActionTypes.GET_BY_CREATED_ASC](state): Array<ITask> {
+      return TaskList.sortByCreated(state.tasks, 'asc')
+    },
+    [ActionTypes.GET_BY_CREATED_DESC](state): Array<ITask> {
+      return TaskList.sortByCreated(state.tasks, 'desc')
+    },
+    [ActionTypes.GET_BY_DUE_ASC](state): Array<ITask> {
+      return TaskList.sortByDue(state.tasks, 'asc')
+    },
+    [ActionTypes.GET_BY_DUE_DESC](state): Array<ITask> {
+      return TaskList.sortByDue(state.tasks, 'desc')
+    },
+    [ActionTypes.GET_BY_STATUS](state, status: string): Array<ITask> {
+      return TaskList.filterByStatus(state.tasks, status)
+    },
+    [ActionTypes.GET_BY_TAGS](state, tags: Array<string>): Array<ITask> {
+      return TaskList.filterByTags(state.tasks, tags)
     }
   }
   // modules: {}
