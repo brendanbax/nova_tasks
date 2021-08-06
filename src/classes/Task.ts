@@ -1,16 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
+import { ITask } from '@/interfaces/ITask'
 
-export interface TaskModel {
-  id?: string
-  title: string
-  body?: string
-  creationDate?: Date
-  dueDate?: unknown
-  tags?: Array<string>
-  status?: string
-}
-
-export class Task implements TaskModel {
+export class Task implements ITask {
   id: string
   title: string
   body: string
@@ -19,7 +10,7 @@ export class Task implements TaskModel {
   tags: Array<string>
   status: string
 
-  constructor({ title, body, dueDate, status, tags }: TaskModel) {
+  constructor({ title, body, dueDate, status, tags }: ITask) {
     this.id = uuidv4()
     this.title = title
     this.body = body || ''

@@ -1,29 +1,41 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { TaskModel } from '@/classes/Task'
+import { ITask } from '@/interfaces/ITask'
+import { ISummary } from '@/interfaces/ISummary'
 import TaskList from '@/classes/TaskList'
-import { ADD_TASK, UPDATE_TASK } from '@/store/actionTypes'
+import TaskTypes from '@/store/actionTypes'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    tasks: Array<TaskModel>()
+    tasks: Array<ITask>()
   },
   mutations: {
-    addTask(state, task: TaskModel) {
+    addTask(state, task: ITask) {
       state.tasks.push(task)
     },
-    updateTask(state, task: TaskModel) {
+    updateTask(state, task: ITask) {
       state.tasks = TaskList.updateTasks(state.tasks, task)
     }
   },
   actions: {
-    [ADD_TASK](context, task: TaskModel) {
+    [TaskTypes.ADD_TASK](context, task: ITask) {
       context.commit('addTask', task)
     },
-    [UPDATE_TASK](context, task: TaskModel) {
+    [TaskTypes.UPDATE_TASK](context, task: ITask) {
       context.commit('updateTask', task)
+    }
+  },
+  getters: {
+    [TaskTypes.GET_TASK](state, taskId: string) {
+      return TaskList.getTaskById(state.tasks, taskId)
+    },
+    [TaskTypes.GET_TASKS](state): Array<ITask> {
+      return state.tasks
+    },
+    [TaskTypes.GET_TASK_SUMMARY](state): Array<ISummary> {
+      return TaskList.getStatusSummary(state.tasks)
     }
   }
   // modules: {}

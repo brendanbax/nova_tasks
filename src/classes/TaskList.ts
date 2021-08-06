@@ -1,19 +1,16 @@
-import { TaskModel, Task } from './Task'
-
-interface SummaryModel {
-  total: number
-  status: string
-}
+import { Task } from './Task'
+import { ITask } from '@/interfaces/ITask'
+import { ISummary } from '@/interfaces/ISummary'
 
 class TaskList {
-  static getTaskIndex(tasks: Array<TaskModel>, id: string): number {
-    return tasks.findIndex((el: TaskModel) => {
+  static getTaskIndex(tasks: Array<ITask>, id: string): number {
+    return tasks.findIndex((el: ITask) => {
       return el.id === id
     })
   }
 
   static compareTaskDates(key: string, order = 'asc') {
-    return function innerSort(a: TaskModel, b: TaskModel): number {
+    return function innerSort(a: ITask, b: ITask): number {
       if (!Object.hasOwnProperty.call(a, key) || !Object.hasOwnProperty.call(b, key)) {
         return 0
       }
@@ -31,11 +28,11 @@ class TaskList {
     }
   }
 
-  static getTaskById(tasks: Array<TaskModel>, id: string): TaskModel {
+  static getTaskById(tasks: Array<ITask>, id: string): ITask {
     return tasks[this.getTaskIndex(tasks, id)]
   }
 
-  static getStatusSummary(tasks: Array<TaskModel>): Array<SummaryModel> {
+  static getStatusSummary(tasks: Array<ITask>): Array<ISummary> {
     const statusList = [...new Set(tasks.map((task) => task.status))]
     const results = []
     for (const status of statusList) {
@@ -50,7 +47,7 @@ class TaskList {
     return results
   }
 
-  static updateTasks(tasks: Array<TaskModel>, task: TaskModel): Array<TaskModel> {
+  static updateTasks(tasks: Array<ITask>, task: ITask): Array<ITask> {
     if (!task.id) return tasks
 
     const index: number = this.getTaskIndex(tasks, task.id)
@@ -59,17 +56,17 @@ class TaskList {
     return tasks
   }
 
-  static filterByStatus(tasks: Array<TaskModel>, status: string): Array<TaskModel> {
-    return tasks.filter((el: TaskModel) => {
+  static filterByStatus(tasks: Array<ITask>, status: string): Array<ITask> {
+    return tasks.filter((el: ITask) => {
       return el.status === status
     })
   }
 
-  static filterByTags(tasks: Array<TaskModel>, tags: Array<string>): Array<TaskModel> {
-    const matches: Array<TaskModel> = []
+  static filterByTags(tasks: Array<ITask>, tags: Array<string>): Array<ITask> {
+    const matches: Array<ITask> = []
     for (const tag of tags) {
       matches.push(
-        ...tasks.filter((el: TaskModel) => {
+        ...tasks.filter((el: ITask) => {
           return el.tags?.includes(tag)
         })
       )
@@ -77,7 +74,7 @@ class TaskList {
     return matches
   }
 
-  static sortByCreated(tasks: Array<TaskModel>, direction: string): Array<TaskModel> {
+  static sortByCreated(tasks: Array<ITask>, direction: string): Array<ITask> {
     const options = ['asc', 'desc']
     if (!options.includes(direction)) {
       return tasks
@@ -85,7 +82,7 @@ class TaskList {
     return tasks.slice().sort(this.compareTaskDates('creationDate', direction))
   }
 
-  static sortByDue(tasks: Array<TaskModel>, direction: string): Array<TaskModel> {
+  static sortByDue(tasks: Array<ITask>, direction: string): Array<ITask> {
     const options = ['asc', 'desc']
     if (!options.includes(direction)) {
       return tasks
