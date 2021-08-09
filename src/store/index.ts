@@ -24,11 +24,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    [ActionTypes.ADD_TASK](context, task: ITask) {
+    async [ActionTypes.ADD_TASK](context, task: ITask): Promise<IResponse> {
       context.commit('addTask', task)
+      const status = await this.dispatch(ActionTypes.SET_LOCAL_STATE)
+      return status
     },
-    [ActionTypes.UPDATE_TASK](context, task: ITask) {
+    async [ActionTypes.UPDATE_TASK](context, task: ITask): Promise<IResponse> {
       context.commit('updateTask', task)
+      const status = await this.dispatch(ActionTypes.SET_LOCAL_STATE)
+      return status
     },
     async [ActionTypes.SET_LOCAL_STATE](): Promise<IResponse> {
       const localStorage = window.localStorage
@@ -59,7 +63,16 @@ export default new Vuex.Store({
         try {
           const localTasks = localStorage.getItem('tasks')
           if (localTasks) {
-            const tasks = JSON.parse(localTasks)
+            const tasks = JSON.parse(localTasks).map((task: ITask) => {
+              // Convert string dates to date objects
+              if (task.creationDate) {
+                task.creationDate = new Date(task.creationDate)
+              }
+              if (task.dueDate) {
+                task.dueDate = new Date(task.dueDate)
+              }
+              return task
+            })
             context.commit('setTasks', tasks)
             return {
               status: 0,
