@@ -11,6 +11,8 @@ export const GET_BY_DUE_ASC = 'GET_BY_DUE_ASC'
 export const GET_BY_DUE_DESC = 'GET_BY_DUE_DESC'
 export const GET_BY_TAGS = 'GET_BY_TAGS'
 export const GET_BY_STATUS = 'GET_BY_STATUS'
+export const GET_LOCAL_STATE = 'GET_LOCAL_STATE'
+export const SET_LOCAL_STATE = 'SET_LOCAL_STATE'
 
 const actionTypes = {
   ADD_TASK,
@@ -24,7 +26,9 @@ const actionTypes = {
   GET_BY_DUE_ASC,
   GET_BY_DUE_DESC,
   GET_BY_TAGS,
-  GET_BY_STATUS
+  GET_BY_STATUS,
+  GET_LOCAL_STATE,
+  SET_LOCAL_STATE
 }
 
 export default actionTypes

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { ITask } from '@/interfaces/ITask'
 import { ISummary } from '@/interfaces/ISummary'
+import { IResponse } from '@/interfaces/IResponse'
 import TaskList from '@/classes/TaskList'
 import ActionTypes from '@/store/actionTypes'
 
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     updateTask(state, task: ITask) {
       state.tasks = TaskList.updateTasks(state.tasks, task)
+    },
+    setTasks(state, tasks: Array<ITask>) {
+      state.tasks = tasks
     }
   },
   actions: {
@@ -25,10 +29,61 @@ export default new Vuex.Store({
     },
     [ActionTypes.UPDATE_TASK](context, task: ITask) {
       context.commit('updateTask', task)
+    },
+    async [ActionTypes.SET_LOCAL_STATE](): Promise<IResponse> {
+      const localStorage = window.localStorage
+      if (localStorage) {
+        try {
+          const tasks = JSON.stringify(this.state.tasks)
+          localStorage.setItem('tasks', tasks)
+          return {
+            status: 0,
+            message: 'success'
+          }
+        } catch (e) {
+          return {
+            status: 1,
+            message: e.message
+          }
+        }
+      } else {
+        return {
+          status: 1,
+          message: 'no access to local storage'
+        }
+      }
+    },
+    async [ActionTypes.GET_LOCAL_STATE](context): Promise<IResponse> {
+      const localStorage = window.localStorage
+      if (localStorage) {
+        try {
+          const localTasks = localStorage.getItem('tasks')
+          if (localTasks) {
+            const tasks = JSON.parse(localTasks)
+            context.commit('setTasks', tasks)
+            return {
+              status: 0,
+              message: 'success'
+            }
+          } else {
+            throw new Error()
+          }
+        } catch (e) {
+          return {
+            status: 1,
+            message: e.message
+          }
+        }
+      } else {
+        return {
+          status: 1,
+          message: 'no access to local storage'
+        }
+      }
     }
   },
   getters: {
-    [ActionTypes.GET_TASK](state, taskId: string) {
+    [ActionTypes.GET_TASK](state, taskId: string): ITask {
       return TaskList.getTaskById(state.tasks, taskId)
     },
     [ActionTypes.GET_TASKS](state): Array<ITask> {
@@ -56,6 +111,4 @@ export default new Vuex.Store({
       return TaskList.filterByTags(state.tasks, tags)
     }
   }
-  // modules: {}
-  // don't need modules for now, so ignoring
 })

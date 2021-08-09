@@ -2,15 +2,15 @@
   <div>
     <h1>List View</h1>
     <button @click="seedTask">Seed Task</button>
-    <button @click="updateTask">Update Task</button>
-    <button @click="getSortedTasks">Fetch Tasks</button>
+    <button @click="handleLocalStorage">Store In Local</button>
+    <button @click="handleGetLocal">Get From Local</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Task } from '@/classes/Task'
 import { ITask } from '@/interfaces/ITask'
-import { ADD_TASK, UPDATE_TASK } from '@/store/actionTypes'
+import { ADD_TASK, SET_LOCAL_STATE, GET_LOCAL_STATE } from '@/store/actionTypes'
 import Vue from 'vue'
 
 export default Vue.extend({
@@ -35,21 +35,11 @@ export default Vue.extend({
       }
       this.$store.dispatch(ADD_TASK, new Task(sample))
     },
-    updateTask() {
-      let taskID = this.$store.state.tasks[0].id
-      let sample: ITask = {
-        id: taskID,
-        title: 'Update',
-        body: 'Update'
-      }
-      this.$store.dispatch(UPDATE_TASK, sample)
+    async handleLocalStorage() {
+      this.$store.dispatch(SET_LOCAL_STATE).then((res) => console.log(res))
     },
-    async getSortedTasks() {
-      try {
-        this.sortedTasks = await this.$store.getters.GET_BY_CREATED_DESC
-      } catch (e) {
-        console.log(e.message)
-      }
+    async handleGetLocal() {
+      this.$store.dispatch(GET_LOCAL_STATE).then((res) => console.log(res))
     }
   }
 })
