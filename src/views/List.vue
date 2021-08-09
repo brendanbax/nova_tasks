@@ -1,48 +1,62 @@
 <template>
-  <div>
-    <h1>List View</h1>
-    <button @click="seedTask">Seed Task</button>
-    <button @click="handleLocalStorage">Store In Local</button>
-    <button @click="handleGetLocal">Get From Local</button>
+  <TaskForm v-if="showNewTask" @cancel="toggleNewTask" />
+  <div v-else>
+    <div>
+      <span>Search</span>
+      <button @click="toggleNewTask">Add</button>
+    </div>
+    <ul>
+      <li v-for="task in taskList" :key="task.index">{{ task.title }}</li>
+    </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { Task } from '@/classes/Task'
+import TaskForm from '@/components/TaskForm.vue'
 import { ITask } from '@/interfaces/ITask'
-import { ADD_TASK, SET_LOCAL_STATE, GET_LOCAL_STATE } from '@/store/actionTypes'
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'TaskList',
-  props: {},
+  components: {
+    TaskForm
+  },
   data() {
     return {
-      sortedTasks: []
+      showNewTask: false,
+      sortingOptions: ['Creation Date (desc)', 'Creation Date (asc)', 'Due Date (desc)', 'Due Date (asc)'],
+      sortingSelection: 'Creation Date (desc)'
     }
   },
   computed: {
     taskList(): Array<ITask> {
-      return this.$store.state.tasks
+      if (this.sortingSelection.includes('Creation') && this.sortingSelection.includes('desc')) {
+        return this.$store.getters.GET_BY_CREATED_DESC
+      } else if (this.sortingSelection.includes('Creation') && this.sortingSelection.includes('asc')) {
+        return this.$store.getters.GET_BY_CREATED_ASC
+      } else if (this.sortingSelection.includes('Due') && this.sortingSelection.includes('desc')) {
+        return this.$store.getters.GET_BY_DUE_DESC
+      } else if (this.sortingSelection.includes('Due') && this.sortingSelection.includes('asc')) {
+        return this.$store.getters.GET_BY_DUE_ASC
+      } else {
+        return this.$store.getters.GET_TASKS
+      }
     }
   },
   methods: {
-    seedTask() {
-      let sample: ITask = {
-        id: '123',
-        title: 'Seed',
-        body: 'Seed'
-      }
-      this.$store.dispatch(ADD_TASK, new Task(sample))
+    toggleNewTask(): void {
+      this.showNewTask = !this.showNewTask
     },
-    async handleLocalStorage() {
-      this.$store.dispatch(SET_LOCAL_STATE).then((res) => console.log(res))
-    },
-    async handleGetLocal() {
-      this.$store.dispatch(GET_LOCAL_STATE).then((res) => console.log(res))
+    updateSorting(event: any): void {
+      const target = event.target.value
+      console.log(target)
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+* {
+  color: white;
+}
+</style>
