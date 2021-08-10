@@ -5,6 +5,7 @@ import Home from '@/views/Home.vue'
 import List from '@/views/List.vue'
 import Calendar from '@/views/Calendar.vue'
 import Alerts from '@/views/Alerts.vue'
+import Details from '@/views/Details.vue'
 import New from '@/views/New.vue'
 
 Vue.use(VueRouter)
@@ -34,6 +35,11 @@ const routes: Array<RouteConfig> = [
     path: '/alerts',
     name: 'Alerts',
     component: Alerts
+  },
+  {
+    path: '/tasks/:id',
+    name: 'Task',
+    component: Details
   }
   /*{
     path: '/about',
