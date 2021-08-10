@@ -1,8 +1,14 @@
 <template>
-  <div>
+  <div class="view-container">
+    <div>
+      <button @click="handleBack">Back</button>
+    </div>
     <h2>{{ title }}</h2>
     <p>{{ body }}</p>
     <p>{{ creationDate }}</p>
+    <div>
+      <span v-for="(tag, index) in tags" :key="`${id}-${index}`" class="tag micro">{{ tag }}</span>
+    </div>
   </div>
 </template>
 
@@ -10,7 +16,6 @@
 import Vue from 'vue'
 import { ITask } from '@/interfaces/ITask'
 import { GET_TASK } from '@/store/actionTypes'
-// import TaskList from '@/classes/TaskList'
 
 export default Vue.extend({
   data() {
@@ -22,6 +27,9 @@ export default Vue.extend({
     this.getTask()
   },
   computed: {
+    id(): string | undefined {
+      return this.task.id
+    },
     title(): string {
       return this.task.title
     },
@@ -56,9 +64,22 @@ export default Vue.extend({
     },
     convertDate(date: Date): string {
       return date.toString().split(' ').slice(1, 4).join()
+    },
+    handleBack(): void {
+      this.$router.go(-1)
     }
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.tag {
+  background-color: var(--green-500);
+  border-radius: 1rem;
+  color: var(--blue-900);
+  padding: 0.25rem 0.5rem;
+}
+.tag:not(:first-child) {
+  margin-left: 0.5rem;
+}
+</style>

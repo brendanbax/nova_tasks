@@ -1,7 +1,7 @@
 <template>
   <div class="container" @click="handleClick">
     <h2 class="subtitle">{{ taskTitle }}</h2>
-    <p class="due micro" v-if="taskDue">{{ taskDue }}</p>
+    <p class="micro" v-if="taskDue">{{ taskDue }}</p>
   </div>
 </template>
 
@@ -44,14 +44,5 @@ export default Vue.extend({
 }
 .container:not(:last-child) {
   margin-bottom: 1rem;
-}
-.tag {
-  background-color: var(--green-500);
-  border-radius: 1rem;
-  color: var(--blue-900);
-  padding: 0.25rem 0.5rem;
-}
-.tag:not(:first-child) {
-  margin-left: 0.5rem;
 }
 </style>

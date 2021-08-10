@@ -1,5 +1,5 @@
 <template>
-  <div class="view-container">
+  <div class="view-child">
     <TaskItem v-for="task in taskList" :key="task.index" :task="task" />
   </div>
 </template>
