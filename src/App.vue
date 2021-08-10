@@ -20,7 +20,7 @@ import TopBar from '@/components/TopBar.vue'
     NavBar,
     TopBar
   },
-  mounted() {
+  created() {
     this.$store.dispatch(GET_LOCAL_STATE)
   }
 })
