@@ -6,9 +6,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.view-child {
-  margin-top: 1rem;
-}
 .view-container {
   padding: 1.5rem;
 }

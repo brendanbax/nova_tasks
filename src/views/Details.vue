@@ -7,7 +7,7 @@
     <p>{{ body }}</p>
     <p>{{ creationDate }}</p>
     <div>
-      <span v-for="(tag, index) in tags" :key="`${id}-${index}`" class="tag micro">{{ tag }}</span>
+      <Tag v-for="(tag, index) in tags" :key="`${id}-${index}`" :text="tag" />
     </div>
   </div>
 </template>
@@ -16,8 +16,12 @@
 import Vue from 'vue'
 import { ITask } from '@/interfaces/ITask'
 import { GET_TASK } from '@/store/actionTypes'
+import Tag from '@/components/Tag.vue'
 
 export default Vue.extend({
+  components: {
+    Tag
+  },
   data() {
     return {
       task: {} as ITask
@@ -72,14 +76,4 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-.tag {
-  background-color: var(--green-500);
-  border-radius: 1rem;
-  color: var(--blue-900);
-  padding: 0.25rem 0.5rem;
-}
-.tag:not(:first-child) {
-  margin-left: 0.5rem;
-}
-</style>
+<style scoped></style>

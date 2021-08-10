@@ -1,9 +1,10 @@
 <template>
-  <div class="view-main">
-    <div class="container">
+  <div class="view-container">
+    <div class="row-container">
+      <h1 class="title">{{ currentView }}</h1>
       <button @click="handleNew">Add Task</button>
     </div>
-    <router-view />
+    <router-view class="tab-view" />
     <NavBar />
   </div>
 </template>
@@ -16,6 +17,11 @@ export default Vue.extend({
   components: {
     NavBar
   },
+  computed: {
+    currentView(): string | null | undefined {
+      return this.$route.name
+    }
+  },
   methods: {
     handleNew(): void {
       this.$router.push('new')
@@ -25,12 +31,13 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.view-main {
-  padding: 1.5rem;
-  margin-bottom: 4rem;
-}
-.container {
+.row-container {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.tab-view {
+  margin-top: 1.5rem;
+  margin-bottom: 4rem;
 }
 </style>

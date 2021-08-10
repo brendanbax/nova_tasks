@@ -2,10 +2,10 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 // Views
 import Main from '@/views/Main.vue'
-import Home from '@/views/Home.vue'
-import List from '@/views/List.vue'
-import Calendar from '@/views/Calendar.vue'
-import Alerts from '@/views/Alerts.vue'
+import Home from '@/views/tabs/Home.vue'
+import List from '@/views/tabs/List.vue'
+import Calendar from '@/views/tabs/Calendar.vue'
+import Alerts from '@/views/tabs/Alerts.vue'
 import Details from '@/views/Details.vue'
 import New from '@/views/New.vue'
 
@@ -19,18 +19,22 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: 'list',
+        name: 'List',
         component: List
       },
       {
         path: 'calendar',
+        name: 'Calendar',
         component: Calendar
       },
       {
         path: 'alerts',
+        name: 'Alerts',
         component: Alerts
       },
       {
         path: '',
+        name: 'Home',
         component: Home
       }
     ]
