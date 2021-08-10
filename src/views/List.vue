@@ -1,29 +1,21 @@
 <template>
-  <TaskForm v-if="showNewTask" @cancel="toggleNewTask" />
-  <div v-else>
-    <div>
-      <span>Search</span>
-      <button @click="toggleNewTask">Add</button>
-    </div>
-    <ul>
-      <li v-for="task in taskList" :key="task.index">{{ task.title }}</li>
-    </ul>
+  <div class="view-container">
+    <TaskItem v-for="task in taskList" :key="task.index" :task="task" />
   </div>
 </template>
 
 <script lang="ts">
-import TaskForm from '@/components/TaskForm.vue'
+import TaskItem from '@/components/TaskItem.vue'
 import { ITask } from '@/interfaces/ITask'
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'TaskList',
   components: {
-    TaskForm
+    TaskItem
   },
   data() {
     return {
-      showNewTask: false,
       sortingOptions: ['Creation Date (desc)', 'Creation Date (asc)', 'Due Date (desc)', 'Due Date (asc)'],
       sortingSelection: 'Creation Date (desc)'
     }
@@ -44,9 +36,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    toggleNewTask(): void {
-      this.showNewTask = !this.showNewTask
-    },
+    // TODO: Fix this any type issue
     updateSorting(event: any): void {
       const target = event.target.value
       console.log(target)
