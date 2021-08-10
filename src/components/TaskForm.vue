@@ -57,7 +57,7 @@ export default Vue.extend({
   },
   computed: {
     taskObject(): ITask {
-      const tagList = this.tags.split(',').map((el: string) => el.trim())
+      const tagList = this.tags === '' ? [] : this.tags.split(',').map((el: string) => el.trim())
       return {
         id: this.id,
         title: this.title,
