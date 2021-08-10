@@ -13,13 +13,13 @@ export default new Vuex.Store({
     tasks: Array<ITask>()
   },
   mutations: {
-    addTask(state, task: ITask) {
+    addTask(state, task: ITask): void {
       state.tasks.push(task)
     },
-    updateTask(state, task: ITask) {
+    updateTask(state, task: ITask): void {
       state.tasks = TaskList.updateTasks(state.tasks, task)
     },
-    setTasks(state, tasks: Array<ITask>) {
+    setTasks(state, tasks: Array<ITask>): void {
       state.tasks = tasks
     }
   },
@@ -96,9 +96,6 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    [ActionTypes.GET_TASK](state, taskId: string): ITask {
-      return TaskList.getTaskById(state.tasks, taskId)
-    },
     [ActionTypes.GET_TASKS](state): Array<ITask> {
       return state.tasks
     },
@@ -117,11 +114,20 @@ export default new Vuex.Store({
     [ActionTypes.GET_BY_DUE_DESC](state): Array<ITask> {
       return TaskList.sortByDue(state.tasks, 'desc')
     },
-    [ActionTypes.GET_BY_STATUS](state, status: string): Array<ITask> {
-      return TaskList.filterByStatus(state.tasks, status)
-    },
-    [ActionTypes.GET_BY_TAGS](state, tags: Array<string>): Array<ITask> {
-      return TaskList.filterByTags(state.tasks, tags)
-    }
+    [ActionTypes.GET_BY_STATUS]:
+      (state) =>
+      (status: string): Array<ITask> => {
+        return TaskList.filterByStatus(state.tasks, status)
+      },
+    [ActionTypes.GET_BY_TAGS]:
+      (state) =>
+      (tags: Array<string>): Array<ITask> => {
+        return TaskList.filterByTags(state.tasks, tags)
+      },
+    [ActionTypes.GET_TASK]:
+      (state) =>
+      (id: string): ITask => {
+        return TaskList.getTaskById(state.tasks, id)
+      }
   }
 })
