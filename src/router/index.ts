@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 // Views
+import Main from '@/views/Main.vue'
 import Home from '@/views/Home.vue'
 import List from '@/views/List.vue'
 import Calendar from '@/views/Calendar.vue'
@@ -13,33 +14,36 @@ Vue.use(VueRouter)
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/new',
-    name: 'New',
-    component: New
-  },
-  {
-    path: '/list',
-    name: 'List',
-    component: List
-  },
-  {
-    path: '/calendar',
-    name: 'Calendar',
-    component: Calendar
-  },
-  {
-    path: '/alerts',
-    name: 'Alerts',
-    component: Alerts
+    name: '',
+    component: Main,
+    children: [
+      {
+        path: 'list',
+        component: List
+      },
+      {
+        path: 'calendar',
+        component: Calendar
+      },
+      {
+        path: 'alerts',
+        component: Alerts
+      },
+      {
+        path: '',
+        component: Home
+      }
+    ]
   },
   {
     path: '/tasks/:id',
     name: 'Task',
     component: Details
+  },
+  {
+    path: '/new',
+    name: 'New',
+    component: New
   }
   /*{
     path: '/about',
