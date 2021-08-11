@@ -1,5 +1,5 @@
 <template>
-  <div class="tile" @click="handleClick">
+  <div class="tile task" @click="handleClick">
     <h2 class="subtitle">{{ taskTitle }}</h2>
     <p class="micro" v-if="taskDue">{{ taskDue }}</p>
   </div>
@@ -36,7 +36,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.container:not(:last-child) {
+.task:not(:last-child) {
   margin-bottom: 1rem;
 }
 </style>

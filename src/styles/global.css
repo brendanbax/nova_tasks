@@ -99,6 +99,9 @@ body {
 .center {
   text-align: center;
 }
+.right {
+  text-align: right;
+}
 
 /* Inputs */
 .form-row {
@@ -135,4 +138,10 @@ textarea:focus {
 }
 .button-primary {
   background-color: var(--green-500);
+  color: var(--blue-900);
+}
+.button-secondary {
+  background-color: transparent;
+  border: 0.125rem solid var(--green-500);
+  color: var(--green-500);
 }

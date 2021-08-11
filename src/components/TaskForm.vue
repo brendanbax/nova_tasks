@@ -68,7 +68,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    handleUpdate() {
+    handleUpdate(): void {
       if (this.taskObj) {
         this.updateTask()
       } else {
@@ -76,7 +76,7 @@ export default Vue.extend({
       }
       this.$emit('cancel')
     },
-    clearUpdate() {
+    clearUpdate(): void {
       this.$emit('cancel')
     },
     addTask(): ITask {

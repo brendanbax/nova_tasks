@@ -6,7 +6,7 @@
       </button>
     </span>
     <h1 class="subtitle center">{{ title }}</h1>
-    <span>
+    <span class="right">
       <button v-if="showRight" @click="handleRight">
         <slot name="right-action"></slot>
       </button>
@@ -46,7 +46,7 @@ export default Vue.extend({
 .title-row {
   color: var(--gray-100);
   display: grid;
-  grid-template-columns: 4rem 1fr 4rem;
+  grid-template-columns: 1fr 1fr 1fr;
   height: 2rem;
   align-content: center;
 }
