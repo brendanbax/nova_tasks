@@ -1,8 +1,9 @@
 <template>
   <div class="view-container">
-    <div>
-      <button @click="handleBack">Back</button>
-    </div>
+    <TopBar title="Task Details" @left="handleBack" @right="handleEdit">
+      <template v-slot:left-action>Back</template>
+      <template v-slot:right-action>Edit</template>
+    </TopBar>
     <h2>{{ title }}</h2>
     <p>{{ body }}</p>
     <p>{{ creationDate }}</p>
@@ -14,12 +15,14 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import TopBar from '@/components/TopBar.vue'
 import { ITask } from '@/interfaces/ITask'
 import { GET_TASK } from '@/store/actionTypes'
 import Tag from '@/components/Tag.vue'
 
 export default Vue.extend({
   components: {
+    TopBar,
     Tag
   },
   data() {
@@ -71,6 +74,9 @@ export default Vue.extend({
     },
     handleBack(): void {
       this.$router.go(-1)
+    },
+    handleEdit(): void {
+      this.$router.push(`/tasks/${this.id}/edit`)
     }
   }
 })

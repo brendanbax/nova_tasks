@@ -1,9 +1,8 @@
 <template>
   <div class="view-container">
-    <div class="row-container">
-      <h1 class="title">{{ currentView }}</h1>
-      <button @click="handleNew">Add Task</button>
-    </div>
+    <TopBar :title="currentView" :showLeft="false" @right="handleNew">
+      <template v-slot:right-action>New Task</template>
+    </TopBar>
     <router-view class="tab-view" />
     <NavBar />
   </div>
@@ -11,10 +10,12 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import TopBar from '@/components/TopBar.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default Vue.extend({
   components: {
+    TopBar,
     NavBar
   },
   computed: {
