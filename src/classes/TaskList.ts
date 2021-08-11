@@ -56,6 +56,14 @@ class TaskList {
     return tasks
   }
 
+  static deleteTask(tasks: Array<ITask>, id: string): Array<ITask> {
+    const index: number = this.getTaskIndex(tasks, id)
+    if (index !== -1) {
+      tasks.splice(index, 1)
+    }
+    return tasks
+  }
+
   static filterByStatus(tasks: Array<ITask>, status: string): Array<ITask> {
     return tasks.filter((el: ITask) => {
       return el.status === status

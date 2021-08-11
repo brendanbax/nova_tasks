@@ -19,6 +19,9 @@ export default new Vuex.Store({
     updateTask(state, task: ITask): void {
       state.tasks = TaskList.updateTasks(state.tasks, task)
     },
+    deleteTask(state, id: string): void {
+      state.tasks = TaskList.deleteTask(state.tasks, id)
+    },
     setTasks(state, tasks: Array<ITask>): void {
       state.tasks = tasks
     }
@@ -31,6 +34,11 @@ export default new Vuex.Store({
     },
     async [ActionTypes.UPDATE_TASK](context, task: ITask): Promise<IResponse> {
       context.commit('updateTask', task)
+      const status = await this.dispatch(ActionTypes.SET_LOCAL_STATE)
+      return status
+    },
+    async [ActionTypes.DELETE_TASK](context, id: string): Promise<IResponse> {
+      context.commit('deleteTask', id)
       const status = await this.dispatch(ActionTypes.SET_LOCAL_STATE)
       return status
     },
