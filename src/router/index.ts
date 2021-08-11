@@ -6,8 +6,6 @@ import Home from '@/views/tabs/Home.vue'
 import List from '@/views/tabs/List.vue'
 import Calendar from '@/views/tabs/Calendar.vue'
 import Alerts from '@/views/tabs/Alerts.vue'
-import Details from '@/views/Details.vue'
-import New from '@/views/New.vue'
 
 Vue.use(VueRouter)
 
@@ -42,21 +40,18 @@ const routes: Array<RouteConfig> = [
   {
     path: '/tasks/:id',
     name: 'Task',
-    component: Details
+    component: () => import('@/views/Details.vue')
+  },
+  {
+    path: '/tasks/:id/edit',
+    name: 'Edit Task',
+    component: () => import('@/views/Edit.vue')
   },
   {
     path: '/new',
     name: 'New',
-    component: New
+    component: () => import('@/views/New.vue')
   }
-  /*{
-    path: '/about',
-    name: 'About',
-    route level code-splitting
-    this generates a separate chunk (about.[hash].js) for this route
-    which is lazy-loaded when the route is visited.
-    component: () => import('../views/About.vue') //* webpackChunkName: "about" 
-  }*/
 ]
 
 const router = new VueRouter({
