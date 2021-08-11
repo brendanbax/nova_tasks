@@ -36,8 +36,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    // TODO: Fix this any type issue
-    updateSorting(event: any): void {
+    updateSorting(event: { target: HTMLInputElement }): void {
       const target = event.target.value
       console.log(target)
     }
