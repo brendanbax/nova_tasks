@@ -17,22 +17,22 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: 'list',
-        name: 'List',
+        name: 'Task List',
         component: List
       },
       {
         path: 'calendar',
-        name: 'Calendar',
+        name: 'Task Calendar',
         component: Calendar
       },
       {
         path: 'alerts',
-        name: 'Alerts',
+        name: 'Task Alerts',
         component: Alerts
       },
       {
         path: '',
-        name: 'Home',
+        name: 'Task Home',
         component: Home
       }
     ]

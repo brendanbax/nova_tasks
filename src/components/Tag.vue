@@ -20,6 +20,7 @@ export default Vue.extend({
   background-color: var(--green-500);
   border-radius: 1rem;
   color: var(--blue-900);
+  font-weight: bold;
   padding: 0.25rem 0.5rem;
 }
 .tag:not(:first-child) {

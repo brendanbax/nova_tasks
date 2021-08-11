@@ -19,4 +19,8 @@ export class Task implements ITask {
     this.status = status || ''
     this.tags = tags || []
   }
+
+  static statusOptions(): Array<string> {
+    return ['None', 'To Do', 'In Progress', 'Done', 'Archive']
+  }
 }

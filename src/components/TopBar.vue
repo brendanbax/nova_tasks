@@ -46,7 +46,7 @@ export default Vue.extend({
 .title-row {
   color: var(--gray-100);
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 6rem 1fr 6rem;
   height: 2rem;
   align-content: center;
 }

@@ -9,13 +9,19 @@
       <textarea id="body" type="text" rows="7" v-model="body" />
     </div>
     <div class="form-row">
+      <label for="status" class="block label ml-2">Status</label>
+      <select v-model="status" id="status">
+        <option v-for="(option, index) in statusOptions" :key="`option-${index}`">{{ option }}</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <label for="due" class="block label ml-2">Due Date</label>
+      <input id="tags" type="date" v-model="dueDate" />
+    </div>
+    <div class="form-row">
       <label for="tags" class="block label ml-2">Tags</label>
       <input id="tags" type="text" v-model="tags" />
       <p class="micro helptext ml-2">Separate tags with commas</p>
-    </div>
-    <div class="form-row">
-      <label for="status" class="block label ml-2">Status</label>
-      <input id="status" type="text" v-model="status" />
     </div>
     <button @click.prevent="handleUpdate" class="mt-5 button button-primary">Save</button>
   </form>
@@ -39,32 +45,39 @@ export default Vue.extend({
       id: '',
       title: '',
       body: '',
-      dueDate: null,
+      dueDate: '',
       tags: '',
       status: ''
     }
   },
   mounted() {
     if (this.taskObj) {
+      const computedDate = this.getDateString(this.taskObj.dueDate)
+
       this.id = this.taskObj.id
       this.title = this.taskObj.title
       this.body = this.taskObj.body
-      this.dueDate = this.taskObj.dueDate
+      this.dueDate = computedDate
       this.tags = this.taskObj.tags.join(', ')
       this.status = this.taskObj.status
     }
   },
   computed: {
     taskObject(): ITask {
-      const tagList = this.tags === '' ? [] : this.tags.split(',').map((el: string) => el.trim())
+      const tagList: Array<string> = this.tags === '' ? [] : this.tags.split(',').map((el: string) => el.trim())
+      const computedDue: Date = this.getDateObject(this.dueDate)
+
       return {
         id: this.id,
         title: this.title,
         body: this.body,
-        dueDate: this.dueDate,
+        dueDate: computedDue,
         tags: tagList,
-        status: this.status
+        status: this.status.toLowerCase() === 'none' ? '' : this.status
       }
+    },
+    statusOptions() {
+      return Task.statusOptions()
     }
   },
   methods: {
@@ -87,6 +100,22 @@ export default Vue.extend({
     updateTask(): void {
       this.$store.dispatch(UPDATE_TASK, this.taskObject)
       return
+    },
+    getDateObject(date: string): Date {
+      const dueFormat: Array<string> = date.split('-')
+      const computedDue: Date | null = new Date(parseFloat(dueFormat[0]), parseFloat(dueFormat[1]), parseFloat(dueFormat[2]))
+      return computedDue
+    },
+    getDateString(date: Date): string {
+      // given a date object
+      const dateArr = date.toLocaleString().split(',')[0].split('/')
+      const day = dateArr[0]
+      const month = dateArr[1]
+      const year = dateArr[2]
+
+      const dateStr = `${year}-${day}-${month}`
+      console.log(dateStr)
+      return dateStr
     }
   }
 })

@@ -109,7 +109,8 @@ body {
 }
 input[type='text'],
 input[type='email'],
-textarea {
+textarea,
+select {
   background-color: var(--blue-900);
   border: none;
   border-radius: 0.25rem;
@@ -122,6 +123,9 @@ textarea {
   padding: 0.5rem;
   width: 100%;
 }
+select {
+  appearance: none;
+}
 input[type='text']:focus,
 input[type='email']:focus,
 textarea:focus {
@@ -132,7 +136,7 @@ textarea:focus {
   border: none;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-weight: normal;
+  font-weight: bold;
   padding: 0.5rem 1rem;
   text-transform: capitalize;
 }
