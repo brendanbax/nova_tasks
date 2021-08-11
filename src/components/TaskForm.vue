@@ -1,24 +1,23 @@
 <template>
-  <form>
-    <div>
-      <label for="title">Title</label>
+  <form class="flex-col form-body">
+    <div class="form-row">
+      <label for="title" class="block label ml-2">Title</label>
       <input id="title" type="text" v-model="title" />
     </div>
-    <div>
-      <label for="body">Body</label>
-      <input id="body" type="text" v-model="body" />
+    <div class="form-row">
+      <label for="body" class="block label ml-2">Body</label>
+      <textarea id="body" type="text" rows="7" v-model="body" />
     </div>
-    <div>
-      <label for="tags">Tags</label>
+    <div class="form-row">
+      <label for="tags" class="block label ml-2">Tags</label>
       <input id="tags" type="text" v-model="tags" />
-      <p>Separate tags with commas</p>
+      <p class="micro helptext ml-2">Separate tags with commas</p>
     </div>
-    <div>
-      <label for="status">Status</label>
+    <div class="form-row">
+      <label for="status" class="block label ml-2">Status</label>
       <input id="status" type="text" v-model="status" />
     </div>
-    <button @click.prevent="handleUpdate">Save</button>
-    <button @click.prevent="clearUpdate">Discard</button>
+    <button @click.prevent="handleUpdate" class="mt-5 button button-primary">Save</button>
   </form>
 </template>
 
@@ -94,7 +93,16 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-form {
-  color: white;
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.form-body {
+  color: var(--gray-100);
+  width: 100%;
+}
+.helptext {
+  margin-top: 0.5rem;
 }
 </style>

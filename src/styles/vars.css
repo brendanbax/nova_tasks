@@ -22,4 +22,6 @@
   --trans-500: rgba(159, 176, 206, 0.15);
   --trans-700: rgba(159, 176, 206, 0.2);
   --trans-900: rgba(159, 176, 206, 0.25);
+
+  --font: Avenir, Helvetica, Arial, sans-serif;
 }
