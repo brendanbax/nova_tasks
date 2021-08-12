@@ -1,7 +1,7 @@
 <template>
   <form class="flex-col form-body">
     <div class="form-row">
-      <label for="title" class="block label ml-2">Title</label>
+      <label for="title" class="block label ml-2">Title<span class="danger">*</span></label>
       <input id="title" type="text" required v-model="title" @change="handleUpdate" />
     </div>
     <div class="form-row">
@@ -63,6 +63,7 @@ export default Vue.extend({
       this.tags = this.taskObj.tags.join(', ')
       this.status = this.taskObj.status
     }
+    this.handleUpdate()
   },
   computed: {
     taskObject(): ITask {
