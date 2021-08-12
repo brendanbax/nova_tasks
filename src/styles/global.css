@@ -112,6 +112,12 @@ body {
 .right {
   text-align: right;
 }
+.danger {
+  color: var(--red-500);
+}
+.formatted {
+  white-space: pre-line;
+}
 
 /* Inputs */
 .form-row {
@@ -133,6 +139,9 @@ select {
   min-width: 100%;
   padding: 0.5rem;
   width: 100%;
+}
+textarea {
+  min-height: 4rem;
 }
 select {
   appearance: none;

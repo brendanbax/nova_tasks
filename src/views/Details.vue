@@ -6,7 +6,7 @@
     </TopBar>
     <div class="mt-5 details">
       <h2 class="title">{{ title }}</h2>
-      <p v-if="body" class="body mt-4">{{ body }}</p>
+      <p v-if="body" class="body mt-4 formatted">{{ body }}</p>
       <dl v-if="status" class="mt-5">
         <dt class="label">Status</dt>
         <dd class="tag-container">
