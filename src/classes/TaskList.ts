@@ -1,4 +1,4 @@
-import { Task } from './Task'
+import Task from '@/classes/Task'
 import { ITask } from '@/interfaces/ITask'
 import { ISummary } from '@/interfaces/ISummary'
 

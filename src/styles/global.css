@@ -18,6 +18,13 @@ body {
   padding: 1rem;
 }
 
+/* Layouts */
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Utility */
 .block {
   display: block;
@@ -105,10 +112,11 @@ body {
 
 /* Inputs */
 .form-row {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 input[type='text'],
 input[type='email'],
+input[type='date'],
 textarea,
 select {
   background-color: var(--blue-900);
@@ -128,8 +136,13 @@ select {
 }
 input[type='text']:focus,
 input[type='email']:focus,
-textarea:focus {
+input[type='date']:focus,
+textarea:focus,
+select:focus {
   outline: 0.125rem solid var(--green-500);
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 
 .button {

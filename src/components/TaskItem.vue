@@ -1,12 +1,13 @@
 <template>
   <div class="tile task" @click="handleClick">
     <h2 class="subtitle">{{ taskTitle }}</h2>
-    <p class="micro" v-if="taskDue">{{ taskDue }}</p>
+    <p class="micro mt-2" v-if="taskDue">Due: {{ taskDue }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Dates from '@/classes/Dates'
 
 export default Vue.extend({
   name: 'TaskItem',
@@ -23,8 +24,8 @@ export default Vue.extend({
     taskTitle(): string {
       return this.task.title || ''
     },
-    taskDue(): Date | null {
-      return this.task.dueDate || null
+    taskDue(): string {
+      return this.task.dueDate ? Dates.dateToPretty(this.task.dueDate) : ''
     }
   },
   methods: {

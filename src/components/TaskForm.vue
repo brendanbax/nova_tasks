@@ -15,7 +15,10 @@
       </select>
     </div>
     <div class="form-row">
-      <label for="due" class="block label ml-2">Due Date</label>
+      <div class="flex-row">
+        <label for="due" class="label ml-2">Due Date</label>
+        <button @click.prevent="removeDate" class="mb-2">Remove</button>
+      </div>
       <input id="tags" type="date" v-model="dueDate" />
     </div>
     <div class="form-row">
@@ -29,7 +32,8 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Task } from '@/classes/Task'
+import Task from '@/classes/Task'
+import Dates from '@/classes/Dates'
 import { ITask } from '@/interfaces/ITask'
 import { ADD_TASK, UPDATE_TASK } from '@/store/actionTypes'
 
@@ -52,7 +56,7 @@ export default Vue.extend({
   },
   mounted() {
     if (this.taskObj) {
-      const computedDate = this.getDateString(this.taskObj.dueDate)
+      const computedDate: string = this.taskObj.dueDate ? Dates.objectToString(this.taskObj.dueDate) : ''
 
       this.id = this.taskObj.id
       this.title = this.taskObj.title
@@ -64,14 +68,13 @@ export default Vue.extend({
   },
   computed: {
     taskObject(): ITask {
-      const tagList: Array<string> = this.tags === '' ? [] : this.tags.split(',').map((el: string) => el.trim())
-      const computedDue: Date = this.getDateObject(this.dueDate)
+      const tagList: Array<string> = Task.expandTags(this.tags)
 
       return {
         id: this.id,
         title: this.title,
         body: this.body,
-        dueDate: computedDue,
+        dueDate: this.dueDate ? Dates.stringToObject(this.dueDate) : null,
         tags: tagList,
         status: this.status.toLowerCase() === 'none' ? '' : this.status
       }
@@ -101,32 +104,14 @@ export default Vue.extend({
       this.$store.dispatch(UPDATE_TASK, this.taskObject)
       return
     },
-    getDateObject(date: string): Date {
-      const dueFormat: Array<string> = date.split('-')
-      const computedDue: Date | null = new Date(parseFloat(dueFormat[0]), parseFloat(dueFormat[1]), parseFloat(dueFormat[2]))
-      return computedDue
-    },
-    getDateString(date: Date): string {
-      // given a date object
-      const dateArr = date.toLocaleString().split(',')[0].split('/')
-      const day = dateArr[0]
-      const month = dateArr[1]
-      const year = dateArr[2]
-
-      const dateStr = `${year}-${day}-${month}`
-      console.log(dateStr)
-      return dateStr
+    removeDate(): void {
+      this.dueDate = ''
     }
   }
 })
 </script>
 
 <style scoped>
-.title-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 .form-body {
   color: var(--gray-100);
   width: 100%;

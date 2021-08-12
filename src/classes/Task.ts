@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { ITask } from '@/interfaces/ITask'
 
-export class Task implements ITask {
+class Task implements ITask {
   id: string
   title: string
   body: string
@@ -23,4 +23,10 @@ export class Task implements ITask {
   static statusOptions(): Array<string> {
     return ['None', 'To Do', 'In Progress', 'Done', 'Archive']
   }
+
+  static expandTags(tags: string): Array<string> {
+    return tags === '' ? [] : tags.split(',').map((el: string) => el.trim())
+  }
 }
+
+export default Task
