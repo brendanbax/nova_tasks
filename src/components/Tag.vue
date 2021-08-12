@@ -21,9 +21,10 @@ export default Vue.extend({
   border-radius: 1rem;
   color: var(--blue-900);
   font-weight: bold;
+  margin-bottom: 0.5rem;
   padding: 0.25rem 0.5rem;
 }
-.tag:not(:first-child) {
-  margin-left: 0.5rem;
+.tag:not(:last-child) {
+  margin-right: 0.5rem;
 }
 </style>
