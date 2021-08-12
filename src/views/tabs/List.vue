@@ -44,8 +44,4 @@ export default Vue.extend({
 })
 </script>
 
-<style scoped>
-* {
-  color: white;
-}
-</style>
+<style scoped></style>

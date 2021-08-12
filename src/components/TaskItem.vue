@@ -37,6 +37,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.task {
+  color: var(--gray-100);
+}
 .task:not(:last-child) {
   margin-bottom: 1rem;
 }
