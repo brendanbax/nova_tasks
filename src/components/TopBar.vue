@@ -44,11 +44,16 @@ export default Vue.extend({
 
 <style scoped>
 .title-row {
+  align-content: center;
+  background-color: var(--blue-700);
   color: var(--gray-100);
   display: grid;
   grid-template-columns: 6rem 1fr 6rem;
-  height: 2rem;
-  align-content: center;
+  height: 4rem;
+  margin: -1.5rem -1.5rem 0;
+  padding: 0 1.5rem;
+  position: sticky;
+  top: 0;
 }
 button {
   background: none;

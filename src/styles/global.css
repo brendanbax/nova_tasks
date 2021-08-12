@@ -1,6 +1,6 @@
 /* Views */
 body {
-  background: radial-gradient(circle at top, var(--blue-700), var(--blue-900)) no-repeat;
+  background: linear-gradient(to bottom, var(--blue-700) 4rem, var(--blue-900) 90vh) no-repeat;
   min-height: 100vh;
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;

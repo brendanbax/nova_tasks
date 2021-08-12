@@ -28,13 +28,13 @@ export default Vue.extend({
 
 <style scoped>
 #nav-bar {
-  background: none;
+  background-color: var(--blue-900);
   bottom: 0;
   color: var(--gray-300);
   display: flex;
   justify-content: space-evenly;
   left: 0;
-  padding: 0.25rem 0 0.5rem;
+  padding: 0.5rem 0;
   position: fixed;
   right: 0;
 }
