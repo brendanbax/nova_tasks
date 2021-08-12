@@ -44,6 +44,9 @@ export default Vue.extend({
     routeTask() {
       const id = this.$route.params.id
       return this.$store.getters[GET_TASK](id)
+    },
+    allowSave(): boolean {
+      return this.task.title ? true : false
     }
   },
   methods: {
@@ -54,8 +57,10 @@ export default Vue.extend({
       this.$router.go(-1)
     },
     handleSave(): void {
-      this.$store.dispatch(UPDATE_TASK, this.task)
-      this.$router.go(-1)
+      if (this.allowSave) {
+        this.$store.dispatch(UPDATE_TASK, this.task)
+        this.$router.go(-1)
+      }
     },
     displayAlert(): void {
       this.showAlert = true
