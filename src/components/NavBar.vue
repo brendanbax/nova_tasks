@@ -1,7 +1,7 @@
 <template>
   <nav id="nav-bar">
     <router-link class="nav-item" to="/"><IconHome /><label>Home</label></router-link>
-    <router-link class="nav-item" to="/list"><IconList /><label>List</label></router-link>
+    <router-link class="nav-item" to="/list" exact-path><IconList /><label>List</label></router-link>
     <router-link class="nav-item" to="/calendar"><IconCalendar /><label>Calendar</label></router-link>
     <router-link class="nav-item" :class="hasAlert" to="/alerts"><IconAlert /><label>Alerts</label></router-link>
   </nav>

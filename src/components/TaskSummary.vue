@@ -1,5 +1,5 @@
 <template>
-  <div class="tile center light">
+  <div class="tile center light" @click="handleClick">
     <h2 class="subtitle">{{ count }}</h2>
     <p class="micro capitalize">{{ category }}</p>
   </div>
@@ -17,6 +17,11 @@ export default Vue.extend({
     count: {
       type: Number,
       required: true
+    }
+  },
+  methods: {
+    handleClick(): void {
+      this.$emit('click')
     }
   }
 })

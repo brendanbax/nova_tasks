@@ -26,6 +26,10 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
 .block {
   display: block;
 }
@@ -110,6 +114,9 @@ body {
 }
 .capitalize {
   text-transform: capitalize;
+}
+.bold {
+  font-weight: bold;
 }
 .center {
   text-align: center;

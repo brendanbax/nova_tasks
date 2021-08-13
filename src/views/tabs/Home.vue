@@ -7,6 +7,7 @@
       :category="item.status"
       class="mosaic-item"
       :class="getClass(index + 1)"
+      @click="handleClick(item.status)"
     />
   </div>
 </template>
@@ -36,7 +37,6 @@ export default Vue.extend({
     },
     getTaskRollups(): void {
       const summaries = this.$store.getters.GET_TASK_SUMMARY
-      console.log(summaries)
       if (summaries.length) {
         const todo = summaries.find((el: ISummary) => el.status.toLowerCase() === 'to do') || { status: 'To Do', total: 0 }
         const inprog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'in progress') || { status: 'In Progress', total: 0 }
@@ -45,6 +45,10 @@ export default Vue.extend({
         const unclass = summaries.find((el: ISummary) => el.status.toLowerCase() === 'unclassified') || { status: 'Unclassified', total: 0 }
         this.taskRollups = [todo, inprog, done, archive, unclass]
       }
+    },
+    handleClick(status: string): void {
+      const param = status.split(' ').join('-').toLowerCase()
+      this.$router.push({ path: '/list', query: { filter: param } })
     }
   },
   mounted(): void {

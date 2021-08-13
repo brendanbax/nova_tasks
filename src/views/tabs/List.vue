@@ -1,45 +1,154 @@
 <template>
   <div>
+    <button class="block label light" @click="toggleList">{{ toggleText }}</button>
+    <div class="flex-wrap mb-5">
+      <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" class="capitalize" />
+    </div>
+    <div v-if="showListMenu" class="light">
+      <!-- Filter by status... -->
+      <div class="form-row">
+        <div class="flex-row">
+          <label for="status-filter" class="block label ml-2">Filter by Status</label>
+          <button @click.prevent="removeFilter" class="mb-2">Clear</button>
+        </div>
+        <select v-model="activeFilter" id="status-filter" class="capitalize">
+          <option v-for="(option, index) in filterOptions" :key="`filter-option-${index}`">{{ option }}</option>
+        </select>
+      </div>
+      <!-- Sort by dates... -->
+      <div class="form-row">
+        <label for="date-filter" class="block label ml-2">Sort by Dates</label>
+        <select v-model="sortingSelection" id="status-filter" class="capitalize">
+          <option v-for="(option, index) in sortingOptions" :key="`date-option-${index}`">{{ option }}</option>
+        </select>
+      </div>
+      <!-- Search for tags... -->
+      <div class="form-row mb-5">
+        <div class="flex-row">
+          <label for="searchText" class="block label ml-2">Search By Tag</label>
+          <button @click.prevent="removeSearch" class="mb-2">Clear</button>
+        </div>
+        <input id="searchText" type="text" v-model="searchText" />
+        <p class="micro helptext mt-2 ml-2">Separate tags with commas</p>
+      </div>
+    </div>
     <TaskItem v-for="task in taskList" :key="task.index" :task="task" />
   </div>
 </template>
 
 <script lang="ts">
-import TaskItem from '@/components/TaskItem.vue'
-import { ITask } from '@/interfaces/ITask'
 import Vue from 'vue'
+import { ITask } from '@/interfaces/ITask'
+import Task from '@/classes/Task'
+import TaskItem from '@/components/TaskItem.vue'
+import Tag from '@/components/Tag.vue'
 
 export default Vue.extend({
   name: 'TaskList',
   components: {
-    TaskItem
+    TaskItem,
+    Tag
   },
   data() {
     return {
-      sortingOptions: ['Creation Date (desc)', 'Creation Date (asc)', 'Due Date (desc)', 'Due Date (asc)'],
-      sortingSelection: 'Creation Date (desc)'
+      showListMenu: false,
+      activeFilter: '',
+      sortingSelection: 'creation date (desc)',
+      searchText: '',
+      sortingOptions: ['creation date (desc)', 'creation date (asc)', 'due date (desc)', 'due date (asc)']
     }
   },
   computed: {
     taskList(): Array<ITask> {
-      if (this.sortingSelection.includes('Creation') && this.sortingSelection.includes('desc')) {
-        return this.$store.getters.GET_BY_CREATED_DESC
-      } else if (this.sortingSelection.includes('Creation') && this.sortingSelection.includes('asc')) {
-        return this.$store.getters.GET_BY_CREATED_ASC
-      } else if (this.sortingSelection.includes('Due') && this.sortingSelection.includes('desc')) {
-        return this.$store.getters.GET_BY_DUE_DESC
-      } else if (this.sortingSelection.includes('Due') && this.sortingSelection.includes('asc')) {
-        return this.$store.getters.GET_BY_DUE_ASC
+      let masterList: Array<ITask>
+      // Get a sorted list of tasks
+      if (this.sortingSelection.includes('creation') && this.sortingSelection.includes('desc')) {
+        masterList = this.$store.getters.GET_BY_CREATED_DESC
+      } else if (this.sortingSelection.includes('creation') && this.sortingSelection.includes('asc')) {
+        masterList = this.$store.getters.GET_BY_CREATED_ASC
+      } else if (this.sortingSelection.includes('due') && this.sortingSelection.includes('desc')) {
+        masterList = this.$store.getters.GET_BY_DUE_DESC
+      } else if (this.sortingSelection.includes('due') && this.sortingSelection.includes('asc')) {
+        masterList = this.$store.getters.GET_BY_DUE_ASC
       } else {
-        return this.$store.getters.GET_TASKS
+        masterList = this.$store.getters.GET_TASKS
       }
+      // If there's an active filter, filter the list...
+      if (this.activeFilter) {
+        if (this.activeFilter.toLowerCase() === 'unclassified') {
+          return masterList.filter((item) => !item.status)
+        } else if (this.activeFilter.toLowerCase() === 'clear') {
+          return masterList
+        } else {
+          return masterList.filter((item) => item.status && item.status.toLowerCase() === this.activeFilter.toLowerCase())
+        }
+      }
+      // If there's tag search criteria, filter the list...
+      const matches = []
+      const tags = [...this.searchText.split(',')]
+        .map((item) => {
+          return item.trim()
+        })
+        .filter((el) => {
+          return el !== ''
+        })
+      for (const tag of tags) {
+        matches.push(
+          ...masterList.filter((el: ITask) => {
+            return el.tags?.includes(tag)
+          })
+        )
+      }
+      return masterList
+    },
+    filterOptions(): Array<string> {
+      return [...Task.statusOptions(), 'unclassified']
+    },
+    activeFilters(): Array<string> {
+      const filters: Array<string> = []
+
+      if (this.activeFilter !== '' && this.activeFilter !== 'clear') {
+        filters.push(this.activeFilter)
+      }
+
+      if (this.searchText !== '') {
+        const filtered = [...this.searchText.split(',')]
+          .map((item) => {
+            return item.trim()
+          })
+          .filter((el) => {
+            return el !== ''
+          })
+        filters.push(...filtered)
+      }
+      // Truncation code if I change design later
+      // if (filters.length >= 3) {
+      //   return [filters[0], `+${filters.length - 1}`]
+      // }
+      return filters
+    },
+    toggleText(): string {
+      return this.showListMenu ? 'Hide Filter Options' : 'Show Filter Options'
     }
   },
   methods: {
-    updateSorting(event: { target: HTMLInputElement }): void {
-      const target = event.target.value
-      console.log(target)
+    handleSort(val: string): void {
+      this.sortingSelection = val
+    },
+    toggleList(): void {
+      this.showListMenu = !this.showListMenu
+    },
+    removeFilter(): void {
+      this.activeFilter = ''
+    },
+    removeSearch(): void {
+      this.searchText = ''
     }
+  },
+  mounted(): void {
+    let filter = (this.$route.query.filter as string) || ''
+    this.activeFilter = filter.split('-').join(' ').toLowerCase()
+    if (filter !== '') this.$router.replace('/list')
   }
 })
 </script>

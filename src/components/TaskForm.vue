@@ -80,7 +80,7 @@ export default Vue.extend({
       }
     },
     statusOptions() {
-      return Task.statusOptions()
+      return ['none', ...Task.statusOptions()]
     }
   },
   methods: {
