@@ -3,7 +3,7 @@
     <TopBar :title="currentView" :showLeft="false" @right="handleNew">
       <template v-slot:right-action>New Task</template>
     </TopBar>
-    <router-view class="tab-view" />
+    <router-view class="mt-5 mb-5" />
     <NavBar />
   </div>
 </template>
@@ -36,9 +36,5 @@ export default Vue.extend({
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-}
-.tab-view {
-  margin-top: 1.5rem;
-  margin-bottom: 4rem;
 }
 </style>

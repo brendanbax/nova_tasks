@@ -1,6 +1,8 @@
 /* Views */
 body {
-  background: linear-gradient(to bottom, var(--blue-700) 4rem, var(--blue-900) 80vh) no-repeat;
+  background-image: linear-gradient(to bottom, var(--blue-700) 4rem, var(--blue-900) 80vh);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   min-height: calc(100vh - 4rem);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
