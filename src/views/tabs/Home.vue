@@ -1,5 +1,5 @@
 <template>
-  <div class="mosaic">
+  <div class="mosaic" v-if="taskRollups.length > 0">
     <TaskSummary
       v-for="(item, index) in taskRollups"
       :key="item.status"
@@ -14,25 +14,15 @@
 <script lang="ts">
 import Vue from 'vue'
 import { ISummary } from '@/interfaces/ISummary'
-import Task from '@/classes/Task'
 import TaskSummary from '@/components/TaskSummary.vue'
 
 export default Vue.extend({
   components: {
     TaskSummary
   },
-  computed: {
-    taskRollups(): Array<ISummary> {
-      const summaries = this.$store.getters.GET_TASK_SUMMARY
-      // hardcoding the order for now... in the future this can just be dynamic
-      // will need to trim the options from Task.statusOptions()
-      // and remove the select options from the task form... or generate them programatically
-      const todo = summaries.find((el: ISummary) => el.status.toLowerCase() === 'to do')
-      const inprog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'in progress')
-      const done = summaries.find((el: ISummary) => el.status.toLowerCase() === 'done')
-      const archive = summaries.find((el: ISummary) => el.status.toLowerCase() === 'archive')
-      const unclass = summaries.find((el: ISummary) => el.status.toLowerCase() === 'unclassified')
-      return [todo, inprog, done, archive, unclass]
+  data() {
+    return {
+      taskRollups: [] as Array<ISummary>
     }
   },
   methods: {
@@ -43,7 +33,22 @@ export default Vue.extend({
       if (index === 2) return 'mz-2'
       if (index === 1) return 'mz-1'
       return 'mz-6'
+    },
+    getTaskRollups(): void {
+      const summaries = this.$store.getters.GET_TASK_SUMMARY
+      console.log(summaries)
+      if (summaries.length) {
+        const todo = summaries.find((el: ISummary) => el.status.toLowerCase() === 'to do') || { status: 'To Do', total: 0 }
+        const inprog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'in progress') || { status: 'In Progress', total: 0 }
+        const done = summaries.find((el: ISummary) => el.status.toLowerCase() === 'done') || { status: 'Done', total: 0 }
+        const archive = summaries.find((el: ISummary) => el.status.toLowerCase() === 'archive') || { status: 'Archive', total: 0 }
+        const unclass = summaries.find((el: ISummary) => el.status.toLowerCase() === 'unclassified') || { status: 'Unclassified', total: 0 }
+        this.taskRollups = [todo, inprog, done, archive, unclass]
+      }
     }
+  },
+  mounted(): void {
+    this.getTaskRollups()
   }
 })
 </script>

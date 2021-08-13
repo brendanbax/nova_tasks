@@ -34,7 +34,7 @@ export default Vue.extend({
   display: flex;
   justify-content: space-evenly;
   left: 0;
-  padding: 0.5rem 0 env(safe-area-inset-bottom);
+  padding: 0.5rem 0 calc(0.5rem + env(safe-area-inset-bottom));
   position: fixed;
   right: 0;
 }

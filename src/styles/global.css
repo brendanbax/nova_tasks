@@ -1,13 +1,13 @@
 /* Views */
 body {
-  background: linear-gradient(to bottom, var(--blue-700) 4rem, var(--blue-900) 90vh) no-repeat;
-  min-height: 100vh;
+  background: linear-gradient(to bottom, var(--blue-700) 4rem, var(--blue-900) 80vh) no-repeat;
+  min-height: calc(100vh - 4rem);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 .view-container {
-  padding: 1.5rem;
+  padding: 4rem 1.5rem;
 }
 
 /* Containers */
@@ -141,6 +141,7 @@ input[type='date'],
 input[type='time'] {
   -webkit-appearance: none;
   -webkit-min-logical-width: calc(100% - 16px);
+  min-height: 2.125rem;
 }
 input[type='text'],
 input[type='email'],

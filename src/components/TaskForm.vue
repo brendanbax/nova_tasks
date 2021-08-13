@@ -2,7 +2,7 @@
   <form class="flex-col form-body">
     <div class="form-row">
       <label for="title" class="block label ml-2">Title<span class="danger">*</span></label>
-      <input id="title" type="text" required v-model="title" @change="handleUpdate" />
+      <input id="title" type="text" required ref="title" v-model="title" @change="handleUpdate" />
     </div>
     <div class="form-row">
       <label for="body" class="block label ml-2">Body</label>
@@ -64,6 +64,7 @@ export default Vue.extend({
       this.status = this.taskObj.status
     }
     this.handleUpdate()
+    this.handleFocus()
   },
   computed: {
     taskObject(): ITask {
@@ -88,6 +89,14 @@ export default Vue.extend({
     },
     removeDate(): void {
       this.dueDate = ''
+    },
+    handleFocus(): void {
+      if (!this.taskObj) {
+        const el = this.$refs.title as HTMLElement
+        if (el) {
+          el.focus()
+        }
+      }
     }
   }
 })

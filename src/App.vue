@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <router-view />
   </div>
 </template>
@@ -23,13 +23,4 @@ import NavBar from '@/components/NavBar.vue'
 export default class extends Vue {}
 </script>
 
-<style>
-#app {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow: auto;
-}
-</style>
+<style></style>
