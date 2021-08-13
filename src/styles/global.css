@@ -103,7 +103,7 @@ body {
   margin-bottom: 0.5rem;
 }
 .micro {
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   line-height: 1rem;
 }
 .capitalize {
@@ -136,6 +136,11 @@ body {
 /* Inputs */
 .form-row {
   margin-top: 1.5rem;
+}
+input[type='date'],
+input[type='time'] {
+  -webkit-appearance: none;
+  -webkit-min-logical-width: calc(100% - 16px);
 }
 input[type='text'],
 input[type='email'],
