@@ -89,6 +89,7 @@ export default Vue.extend({
     },
     removeDate(): void {
       this.dueDate = ''
+      this.$emit('update', this.taskObject)
     },
     handleFocus(): void {
       if (!this.taskObj) {
