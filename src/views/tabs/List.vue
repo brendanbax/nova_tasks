@@ -11,14 +11,14 @@
           <label for="status-filter" class="block label ml-2">Filter by Status</label>
           <button @click.prevent="removeFilter" class="mb-2">Clear</button>
         </div>
-        <select v-model="activeFilter" id="status-filter" class="capitalize">
+        <select v-model="activeFilter" id="status-filter" class="capitalize" @change="updateRoute">
           <option v-for="(option, index) in filterOptions" :key="`filter-option-${index}`">{{ option }}</option>
         </select>
       </div>
       <!-- Sort by dates... -->
       <div class="form-row">
         <label for="date-filter" class="block label ml-2">Sort by Dates</label>
-        <select v-model="sortingSelection" id="status-filter" class="capitalize">
+        <select v-model="sortingSelection" id="status-filter" class="capitalize" @change="updateRoute">
           <option v-for="(option, index) in sortingOptions" :key="`date-option-${index}`">{{ option }}</option>
         </select>
       </div>
@@ -28,7 +28,7 @@
           <label for="searchText" class="block label ml-2">Search By Tag</label>
           <button @click.prevent="removeSearch" class="mb-2">Clear</button>
         </div>
-        <input id="searchText" type="text" v-model="searchText" />
+        <input id="searchText" type="text" v-model="searchText" @change="updateRoute" />
         <p class="micro helptext mt-2 ml-2">Separate tags with commas</p>
       </div>
     </div>
@@ -125,10 +125,6 @@ export default Vue.extend({
           })
         filters.push(...filtered)
       }
-      // Truncation code if I change design later
-      // if (filters.length >= 3) {
-      //   return [filters[0], `+${filters.length - 1}`]
-      // }
       return filters
     },
     toggleText(): string {
@@ -138,21 +134,38 @@ export default Vue.extend({
   methods: {
     handleSort(val: string): void {
       this.sortingSelection = val
+      this.updateRoute()
     },
     toggleList(): void {
       this.showListMenu = !this.showListMenu
     },
     removeFilter(): void {
+      if (!this.activeFilter) return
       this.activeFilter = ''
+      this.updateRoute()
     },
     removeSearch(): void {
+      if (!this.searchText) return
       this.searchText = ''
+      this.updateRoute()
+    },
+    updateRoute(): void {
+      const queryObj = {
+        filter: encodeURIComponent(this.activeFilter),
+        sort: encodeURIComponent(this.sortingSelection),
+        search: encodeURIComponent(this.searchText)
+      }
+      this.$router.replace({ path: '/list', query: queryObj })
     }
   },
   mounted(): void {
-    let filter = (this.$route.query.filter as string) || ''
-    this.activeFilter = filter.split('-').join(' ').toLowerCase()
-    if (filter !== '') this.$router.replace('/list')
+    const filterQuery = this.$route.query.filter ? decodeURIComponent(this.$route.query.filter as string) : ''
+    const sortQuery = this.$route.query.sort ? decodeURIComponent(this.$route.query.sort as string) : 'creation date (desc)'
+    const searchQuery = this.$route.query.search ? decodeURIComponent(this.$route.query.search as string) : ''
+
+    this.activeFilter = filterQuery.split('-').join(' ').toLowerCase()
+    this.sortingSelection = sortQuery
+    this.searchText = searchQuery
   }
 })
 </script>
