@@ -37,7 +37,7 @@ class TaskList {
     const results = []
     for (const status of statusList) {
       const filtered = tasks.filter((task) => {
-        return task.status === status
+        return task.status?.toLowerCase() === status?.toLowerCase()
       })
       results.push({
         total: filtered.length,
