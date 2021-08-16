@@ -5,7 +5,7 @@ import Main from '@/views/Main.vue'
 import Home from '@/views/tabs/Home.vue'
 import List from '@/views/tabs/List.vue'
 import Calendar from '@/views/tabs/Calendar.vue'
-import Alerts from '@/views/tabs/Alerts.vue'
+import Overdue from '@/views/tabs/Overdue.vue'
 
 Vue.use(VueRouter)
 
@@ -17,22 +17,22 @@ const routes: Array<RouteConfig> = [
     children: [
       {
         path: 'list',
-        name: 'Task List',
+        name: 'List',
         component: List
       },
       {
         path: 'calendar',
-        name: 'Task Calendar',
+        name: 'Calendar',
         component: Calendar
       },
       {
-        path: 'alerts',
-        name: 'Task Alerts',
-        component: Alerts
+        path: 'overdue',
+        name: 'Overdue',
+        component: Overdue
       },
       {
         path: '',
-        name: 'Task Home',
+        name: 'Home',
         component: Home
       }
     ]

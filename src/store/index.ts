@@ -122,6 +122,9 @@ export default new Vuex.Store({
     [ActionTypes.GET_BY_DUE_DESC](state): Array<ITask> {
       return TaskList.sortByDue(state.tasks, 'desc')
     },
+    [ActionTypes.GET_BY_OVERDUE](state): Array<ITask> {
+      return TaskList.getByOverdue(state.tasks)
+    },
     [ActionTypes.GET_BY_STATUS]:
       (state) =>
       (status: string): Array<ITask> => {

@@ -97,6 +97,14 @@ class TaskList {
     }
     return tasks.slice().sort(this.compareTaskDates('dueDate', order))
   }
+
+  static getByOverdue(tasks: Array<ITask>): Array<ITask> {
+    const now = new Date()
+    const overdue = tasks.filter((task) => {
+      return task.status?.toLowerCase() !== 'done' && task.status?.toLowerCase() !== 'archive' && task.dueDate && task.dueDate < now
+    })
+    return overdue.sort(this.compareTaskDates('dueDate', 'asc'))
+  }
 }
 
 export default TaskList

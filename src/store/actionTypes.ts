@@ -9,6 +9,7 @@ export const GET_BY_CREATED_ASC = 'GET_BY_CREATED_ASC'
 export const GET_BY_CREATED_DESC = 'GET_BY_CREATED_DESC'
 export const GET_BY_DUE_ASC = 'GET_BY_DUE_ASC'
 export const GET_BY_DUE_DESC = 'GET_BY_DUE_DESC'
+export const GET_BY_OVERDUE = 'GET_BY_OVERDUE'
 export const GET_BY_TAGS = 'GET_BY_TAGS'
 export const GET_BY_STATUS = 'GET_BY_STATUS'
 export const GET_LOCAL_STATE = 'GET_LOCAL_STATE'
@@ -25,6 +26,7 @@ const actionTypes = {
   GET_BY_CREATED_DESC,
   GET_BY_DUE_ASC,
   GET_BY_DUE_DESC,
+  GET_BY_OVERDUE,
   GET_BY_TAGS,
   GET_BY_STATUS,
   GET_LOCAL_STATE,

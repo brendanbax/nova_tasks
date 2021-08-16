@@ -3,7 +3,7 @@
     <router-link class="nav-item" to="/"><IconHome /><label>Home</label></router-link>
     <router-link class="nav-item" to="/list" exact-path><IconList /><label>List</label></router-link>
     <router-link class="nav-item" to="/calendar"><IconCalendar /><label>Calendar</label></router-link>
-    <router-link class="nav-item" :class="hasAlert" to="/alerts"><IconAlert /><label>Alerts</label></router-link>
+    <router-link class="nav-item" :class="hasAlert" to="/overdue"><IconAlert /><label>Overdue</label></router-link>
   </nav>
 </template>
 
@@ -19,8 +19,8 @@ export default Vue.extend({
   components: { IconHome, IconList, IconCalendar, IconAlert },
   computed: {
     hasAlert(): string {
-      const hasAlert = true
-      return hasAlert ? 'alert' : ''
+      const alertCount = this.$store.getters.GET_BY_OVERDUE.length
+      return alertCount > 0 ? 'alert' : ''
     }
   }
 })
