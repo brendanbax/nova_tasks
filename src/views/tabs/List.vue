@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button class="block label light" @click="toggleList">{{ toggleText }}</button>
-    <div class="flex-wrap mb-5">
+    <button class="label light flex-row w-100" @click="toggleList">{{ toggleText }}<IconCollapse v-if="showListMenu" /><IconExpand v-else /></button>
+    <div class="flex-wrap mb-2">
       <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" class="capitalize" />
     </div>
     <div v-if="showListMenu" class="light">
@@ -42,12 +42,16 @@ import { ITask } from '@/interfaces/ITask'
 import Task from '@/classes/Task'
 import TaskItem from '@/components/TaskItem.vue'
 import Tag from '@/components/Tag.vue'
+import IconCollapse from '@/components/icons/IconCollapse.vue'
+import IconExpand from '@/components/icons/IconExpand.vue'
 
 export default Vue.extend({
   name: 'TaskList',
   components: {
     TaskItem,
-    Tag
+    Tag,
+    IconCollapse,
+    IconExpand
   },
   data() {
     return {
