@@ -10,7 +10,7 @@
     </div>
     <div class="form-row">
       <label for="status" class="block label ml-2">Status</label>
-      <select v-model="status" @change="handleUpdate" id="status">
+      <select v-model="status" @change="handleUpdate" id="status" class="capitalize">
         <option v-for="(option, index) in statusOptions" :key="`option-${index}`">{{ option }}</option>
       </select>
     </div>
@@ -61,7 +61,7 @@ export default Vue.extend({
       this.body = this.taskObj.body
       this.dueDate = computedDate
       this.tags = this.taskObj.tags.join(', ')
-      this.status = this.taskObj.status
+      this.status = this.taskObj.status.toLowerCase()
     }
     this.handleUpdate()
     this.handleFocus()
