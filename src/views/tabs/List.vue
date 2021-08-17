@@ -57,7 +57,7 @@ export default Vue.extend({
     return {
       showListMenu: false,
       activeFilter: '',
-      sortingSelection: 'creation date (desc)',
+      sortingSelection: 'due date (asc)',
       searchText: '',
       sortingOptions: ['creation date (desc)', 'creation date (asc)', 'due date (desc)', 'due date (asc)']
     }
@@ -160,7 +160,7 @@ export default Vue.extend({
   },
   mounted(): void {
     const filterQuery = this.$route.query.filter ? decodeURIComponent(this.$route.query.filter as string) : ''
-    const sortQuery = this.$route.query.sort ? decodeURIComponent(this.$route.query.sort as string) : 'creation date (desc)'
+    const sortQuery = this.$route.query.sort ? decodeURIComponent(this.$route.query.sort as string) : 'due date (asc)'
     const searchQuery = this.$route.query.search ? decodeURIComponent(this.$route.query.search as string) : ''
 
     this.activeFilter = filterQuery.split('-').join(' ').toLowerCase()

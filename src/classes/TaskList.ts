@@ -28,6 +28,20 @@ class TaskList {
     }
   }
 
+  static sortDateFirst(tasks: Array<ITask>, key: string): Array<ITask> {
+    const orphans: Array<ITask> = []
+    const sorted: Array<ITask> = []
+    tasks.forEach((task) => {
+      if (!task[key as keyof ITask]) {
+        orphans.push(task)
+      } else {
+        sorted.push(task)
+      }
+    })
+
+    return [...sorted, ...orphans]
+  }
+
   static getTaskById(tasks: Array<ITask>, id: string): ITask {
     return tasks[this.getTaskIndex(tasks, id)]
   }
@@ -87,7 +101,8 @@ class TaskList {
     if (!options.includes(order)) {
       return tasks
     }
-    return tasks.slice().sort(this.compareTaskDates('creationDate', order))
+    const sortedList = tasks.slice().sort(this.compareTaskDates('creationDate', order))
+    return this.sortDateFirst(sortedList, 'creationDate')
   }
 
   static sortByDue(tasks: Array<ITask>, order: string): Array<ITask> {
@@ -95,7 +110,8 @@ class TaskList {
     if (!options.includes(order)) {
       return tasks
     }
-    return tasks.slice().sort(this.compareTaskDates('dueDate', order))
+    const sortedList = tasks.slice().sort(this.compareTaskDates('dueDate', order))
+    return this.sortDateFirst(sortedList, 'dueDate')
   }
 
   static getByOverdue(tasks: Array<ITask>): Array<ITask> {
