@@ -40,6 +40,10 @@ body {
 .relative {
   position: relative;
 }
+.sticky {
+  position: sticky;
+  top: 0;
+}
 
 /* Utility */
 .mt-1 {
