@@ -37,14 +37,12 @@ export default Vue.extend({
     },
     getTaskRollups(): void {
       const summaries = this.$store.getters.GET_TASK_SUMMARY
-      if (summaries.length) {
-        const todo = summaries.find((el: ISummary) => el.status.toLowerCase() === 'to do') || { status: 'To Do', total: 0 }
-        const inprog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'in progress') || { status: 'In Progress', total: 0 }
-        const done = summaries.find((el: ISummary) => el.status.toLowerCase() === 'done') || { status: 'Done', total: 0 }
-        const archive = summaries.find((el: ISummary) => el.status.toLowerCase() === 'archive') || { status: 'Archive', total: 0 }
-        const unclass = summaries.find((el: ISummary) => el.status.toLowerCase() === 'unclassified') || { status: 'Unclassified', total: 0 }
-        this.taskRollups = [todo, inprog, done, archive, unclass]
-      }
+      const todo = summaries.find((el: ISummary) => el.status.toLowerCase() === 'to do') || { status: 'To Do', total: 0 }
+      const inprog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'in progress') || { status: 'In Progress', total: 0 }
+      const done = summaries.find((el: ISummary) => el.status.toLowerCase() === 'done') || { status: 'Done', total: 0 }
+      const archive = summaries.find((el: ISummary) => el.status.toLowerCase() === 'archive') || { status: 'Archive', total: 0 }
+      const backlog = summaries.find((el: ISummary) => el.status.toLowerCase() === 'backlog') || { status: 'Backlog', total: 0 }
+      this.taskRollups = [todo, inprog, done, archive, backlog]
     },
     handleClick(status: string): void {
       const param = status.split(' ').join('-').toLowerCase()

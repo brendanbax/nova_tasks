@@ -49,7 +49,7 @@ export default Vue.extend({
       body: '',
       dueDate: '',
       tags: '',
-      status: ''
+      status: 'backlog'
     }
   },
   mounted() {
@@ -79,8 +79,8 @@ export default Vue.extend({
         status: this.status.toLowerCase() === 'none' ? '' : this.status
       }
     },
-    statusOptions() {
-      return ['none', ...Task.statusOptions()]
+    statusOptions(): Array<string> {
+      return Task.statusOptions()
     }
   },
   methods: {

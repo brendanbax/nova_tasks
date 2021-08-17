@@ -21,7 +21,7 @@ class Task implements ITask {
   }
 
   static statusOptions(): Array<string> {
-    return ['to do', 'in progress', 'done', 'archive']
+    return ['backlog', 'to do', 'in progress', 'done', 'archive']
   }
 
   static expandTags(tags: string): Array<string> {
