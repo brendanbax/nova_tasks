@@ -3,7 +3,7 @@
     <h2 class="subtitle" :class="taskClass">{{ taskTitle }}</h2>
     <div class="flex-row">
       <p class="micro mt-2" :class="taskClass" v-if="taskDue">Due: {{ taskDue }}</p>
-      <Tag class="flex-end" :text="taskStatus" />
+      <Tag class="flex-end" :text="taskStatus" v-if="showStatus" />
     </div>
   </div>
 </template>
@@ -22,6 +22,10 @@ export default Vue.extend({
     task: {
       type: Object,
       required: true
+    },
+    showStatus: {
+      type: Boolean,
+      default: true
     }
   },
   computed: {
