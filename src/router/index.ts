@@ -4,7 +4,7 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Main from '@/views/Main.vue'
 import Home from '@/views/tabs/Home.vue'
 import List from '@/views/tabs/List.vue'
-import Calendar from '@/views/tabs/Calendar.vue'
+import Board from '@/views/tabs/Board.vue'
 import Overdue from '@/views/tabs/Overdue.vue'
 
 Vue.use(VueRouter)
@@ -21,9 +21,9 @@ const routes: Array<RouteConfig> = [
         component: List
       },
       {
-        path: 'calendar',
-        name: 'Calendar',
-        component: Calendar
+        path: 'board',
+        name: 'Board',
+        component: Board
       },
       {
         path: 'overdue',

@@ -2,7 +2,7 @@
   <nav id="nav-bar">
     <router-link class="nav-item" to="/"><IconHome /><label>Home</label></router-link>
     <router-link class="nav-item" to="/list" exact-path><IconList /><label>List</label></router-link>
-    <router-link class="nav-item" to="/calendar"><IconCalendar /><label>Calendar</label></router-link>
+    <router-link class="nav-item" to="/board"><IconBoard /><label>Board</label></router-link>
     <router-link class="nav-item" :class="hasAlert" to="/overdue"><IconAlert /><label>Overdue</label></router-link>
   </nav>
 </template>
@@ -11,12 +11,12 @@
 import Vue from 'vue'
 import IconHome from './icons/IconHome.vue'
 import IconList from './icons/IconList.vue'
-import IconCalendar from './icons/IconCalendar.vue'
+import IconBoard from './icons/IconBoard.vue'
 import IconAlert from './icons/IconAlert.vue'
 
 export default Vue.extend({
   name: 'NavBar',
-  components: { IconHome, IconList, IconCalendar, IconAlert },
+  components: { IconHome, IconList, IconBoard, IconAlert },
   computed: {
     hasAlert(): string {
       const alertCount = this.$store.getters.GET_BY_OVERDUE.length
