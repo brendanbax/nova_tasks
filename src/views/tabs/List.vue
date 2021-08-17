@@ -2,7 +2,7 @@
   <div>
     <button class="label light flex-row w-100" @click="toggleList">{{ toggleText }}<IconCollapse v-if="showListMenu" /><IconExpand v-else /></button>
     <div class="flex-wrap mb-2">
-      <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" class="capitalize" />
+      <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" />
     </div>
     <div v-if="showListMenu" class="light">
       <!-- Filter by status... -->
@@ -79,13 +79,7 @@ export default Vue.extend({
       }
       // If there's an active filter, filter the list...
       if (this.activeFilter) {
-        if (this.activeFilter.toLowerCase() === 'unclassified') {
-          return masterList.filter((item) => !item.status)
-        } else if (this.activeFilter.toLowerCase() === 'clear') {
-          return masterList
-        } else {
-          return masterList.filter((item) => item.status && item.status.toLowerCase() === this.activeFilter.toLowerCase())
-        }
+        return masterList.filter((item) => item.status && item.status.toLowerCase() === this.activeFilter.toLowerCase())
       }
       // If there's tag search criteria, filter the list...
       const matches = []
@@ -103,10 +97,13 @@ export default Vue.extend({
           })
         )
       }
+      if (matches.length) {
+        masterList = matches
+      }
       return masterList
     },
     filterOptions(): Array<string> {
-      return [...Task.statusOptions(), 'unclassified']
+      return [...Task.statusOptions()]
     },
     activeFilters(): Array<string> {
       const filters: Array<string> = []

@@ -30,12 +30,15 @@ body {
   display: flex;
   flex-wrap: wrap;
 }
-.block {
-  display: block;
-}
 .flex-col {
   display: flex;
   flex-direction: column;
+}
+.block {
+  display: block;
+}
+.relative {
+  position: relative;
 }
 
 /* Utility */

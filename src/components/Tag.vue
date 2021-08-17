@@ -1,5 +1,5 @@
 <template>
-  <span class="tag micro">{{ text }}</span>
+  <span class="tag micro capitalize">{{ text }}</span>
 </template>
 
 <script lang="ts">
