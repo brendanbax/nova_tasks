@@ -9,10 +9,11 @@
       <p v-if="body" class="body mt-4 formatted">{{ body }}</p>
       <dl v-if="status" class="mt-5">
         <dt class="label">Status</dt>
-        <dd class="tag-container">
-          <Tag :text="status" />
-        </dd>
+        <dd class="tag-container"></dd>
       </dl>
+      <Popover :options="statusOptions" @select="updateStatus">
+        <Tag :text="status" />
+      </Popover>
       <dl class="mt-5">
         <dt class="label">Creation Date</dt>
         <dd class="body">{{ creationDate }}</dd>
@@ -35,21 +36,24 @@
 import Vue from 'vue'
 import { ITask } from '@/interfaces/ITask'
 import Dates from '@/classes/Dates'
-import { GET_TASK } from '@/store/actionTypes'
+import Task from '@/classes/Task'
+import { GET_TASK, UPDATE_TASK } from '@/store/actionTypes'
 import TopBar from '@/components/TopBar.vue'
 import Tag from '@/components/Tag.vue'
+import Popover from '@/components/Popover.vue'
 
 export default Vue.extend({
   components: {
     TopBar,
-    Tag
+    Tag,
+    Popover
   },
   data() {
     return {
       task: {} as ITask
     }
   },
-  created() {
+  created(): void {
     this.getTask()
   },
   computed: {
@@ -81,12 +85,19 @@ export default Vue.extend({
     },
     status(): string | undefined {
       return this.task.status
+    },
+    statusOptions(): Array<string> {
+      return Task.statusOptions()
     }
   },
   methods: {
-    getTask() {
+    getTask(): void {
       const id = this.$route.params.id
       this.task = this.$store.getters[GET_TASK](id)
+    },
+    updateStatus(val: string): void {
+      this.task.status = val
+      this.$store.dispatch(UPDATE_TASK, this.task)
     },
     handleBack(): void {
       this.$router.go(-1)
