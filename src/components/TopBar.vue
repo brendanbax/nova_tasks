@@ -50,11 +50,12 @@ export default Vue.extend({
   display: grid;
   grid-template-columns: 6rem 1fr 6rem;
   height: 4rem;
+  left: 0;
   padding: 0 1.5rem;
   position: fixed;
-  top: 0;
-  left: 0;
   right: 0;
+  top: 0;
+  z-index: 999;
 }
 button {
   background: none;
