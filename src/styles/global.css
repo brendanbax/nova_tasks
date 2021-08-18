@@ -11,6 +11,10 @@ body {
 .view-container {
   padding: 4rem 1.5rem;
 }
+.app-container {
+  max-width: 768px;
+  margin: 0 auto;
+}
 
 /* Containers */
 .tile {

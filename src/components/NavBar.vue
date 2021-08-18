@@ -1,5 +1,5 @@
 <template>
-  <nav id="nav-bar">
+  <nav id="nav-bar" class="app-container">
     <router-link class="nav-item" to="/"><IconHome /><label>Home</label></router-link>
     <router-link class="nav-item" to="/list" exact-path><IconList /><label>List</label></router-link>
     <router-link class="nav-item" to="/board"><IconBoard /><label>Board</label></router-link>

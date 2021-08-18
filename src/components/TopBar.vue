@@ -1,5 +1,5 @@
 <template>
-  <div class="title-row">
+  <div class="title-row app-container">
     <span>
       <button v-if="showLeft" @click="handleLeft" class="micro">
         <slot name="left-action"></slot>
