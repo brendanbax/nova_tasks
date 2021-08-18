@@ -3,8 +3,8 @@
     <div class="tile dialog">
       <h2 class="subtitle">{{ message }}</h2>
       <div class="action-row mt-4">
-        <button @click="emitDismiss" class="button button-primary">{{ dismiss }}</button>
-        <button @click="emitAction" class="button button-secondary">{{ action }}</button>
+        <button @click="emitDismiss" id="dismiss" class="button button-primary">{{ dismiss }}</button>
+        <button @click="emitAction" id="action" class="button button-secondary">{{ action }}</button>
       </div>
     </div>
   </div>
