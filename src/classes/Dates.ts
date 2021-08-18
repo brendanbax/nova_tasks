@@ -16,9 +16,9 @@ class Dates {
   static objectToString(date: Date): string {
     if (date === null) return ''
     const dateArr = date.toLocaleString().split(',')[0].split('/')
-    const day = dateArr[0].length < 2 ? '0' + dateArr[0] : dateArr[0]
-    const month = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
     const year = dateArr[2]
+    const day = dateArr[1].length < 2 ? '0' + dateArr[1] : dateArr[1]
+    const month = dateArr[0].length < 2 ? '0' + dateArr[0] : dateArr[0]
     return `${year}-${day}-${month}`
   }
 }
