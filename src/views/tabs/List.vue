@@ -40,6 +40,7 @@
 import Vue from 'vue'
 import { ITask } from '@/interfaces/ITask'
 import Task from '@/classes/Task'
+import TaskList from '@/classes/TaskList'
 import TaskItem from '@/components/TaskItem.vue'
 import Tag from '@/components/Tag.vue'
 import IconCollapse from '@/components/icons/IconCollapse.vue'
@@ -77,29 +78,20 @@ export default Vue.extend({
       } else {
         masterList = this.$store.getters.GET_TASKS
       }
+
       // If there's an active filter, filter the list...
       if (this.activeFilter) {
-        return masterList.filter((item) => item.status && item.status.toLowerCase() === this.activeFilter.toLowerCase())
+        const filteredList = [...masterList.filter((item) => item.status && item.status.toLowerCase() === this.activeFilter.toLowerCase())]
+        masterList = filteredList
       }
+
       // If there's tag search criteria, filter the list...
-      const matches = []
-      const tags = [...this.searchText.split(',')]
-        .map((item) => {
-          return item.trim()
-        })
-        .filter((el) => {
-          return el !== ''
-        })
-      for (const tag of tags) {
-        matches.push(
-          ...masterList.filter((el: ITask) => {
-            return el.tags?.includes(tag)
-          })
-        )
+      if (this.searchText) {
+        const tags = Task.expandTags(this.searchText)
+        const filteredList = [...TaskList.filterByTags(masterList, tags)]
+        masterList = filteredList
       }
-      if (matches.length) {
-        masterList = matches
-      }
+
       return masterList
     },
     filterOptions(): Array<string> {
@@ -113,13 +105,7 @@ export default Vue.extend({
       }
 
       if (this.searchText !== '') {
-        const filtered = [...this.searchText.split(',')]
-          .map((item) => {
-            return item.trim()
-          })
-          .filter((el) => {
-            return el !== ''
-          })
+        const filtered = Task.expandTags(this.searchText)
         filters.push(...filtered)
       }
       return filters
