@@ -10,7 +10,6 @@ describe('Dialog.vue', () => {
         dismiss: 'Sample dismiss'
       }
     })
-
     const message = wrapper.find('h2')
     const action = wrapper.find('#action')
     const dismiss = wrapper.find('#dismiss')
@@ -22,8 +21,6 @@ describe('Dialog.vue', () => {
 
   it('emits an action when action button is clicked', async () => {
     const wrapper = mount(Dialog)
-
-    // Interaction
     await wrapper.find('#action').trigger('click')
     expect(Object.keys(wrapper.emitted())).toContain('action')
   })
@@ -36,8 +33,6 @@ describe('Dialog.vue', () => {
         dismiss: 'Sample dismiss'
       }
     })
-
-    // Interaction
     await wrapper.find('#dismiss').trigger('click')
     expect(Object.keys(wrapper.emitted())).toContain('dismiss')
   })

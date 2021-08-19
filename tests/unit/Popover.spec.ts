@@ -3,7 +3,7 @@ import Popover from '@/components/Popover.vue'
 
 describe('Popover.vue', () => {
   it('renders a list of provided options when clicked', async () => {
-    const options = ['Foo', 'Bar', 'Baz']
+    const options: Array<string> = ['Foo', 'Bar', 'Baz']
     const wrapper = mount(Popover, {
       propsData: { options }
     })
@@ -16,7 +16,7 @@ describe('Popover.vue', () => {
   })
 
   it('emits the selected option value', async () => {
-    const options = ['Foo', 'Bar', 'Baz']
+    const options: Array<string> = ['Foo', 'Bar', 'Baz']
     const wrapper = mount(Popover, {
       propsData: { options }
     })
