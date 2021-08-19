@@ -1,20 +1,19 @@
-// Import the `mount()` method from Vue Test Utils
-import { mount } from '@vue/test-utils'
+import Task from '@/classes/Task'
 
-// The component to test
-const MessageComponent = {
-  template: '<p>{{ msg }}</p>',
-  props: ['msg']
-}
-
-test('displays message', () => {
-  // mount() returns a wrapped Vue component we can interact with
-  const wrapper = mount(MessageComponent, {
-    propsData: {
-      msg: 'Hello world'
-    }
+describe('Task', () => {
+  it('expandTags returns a list of strings', () => {
+    const tags: string = 'Foo, Bar, Baz'
+    const result: Array<string> = ['Foo', 'Bar', 'Baz']
+    expect(Task.expandTags(tags)).toStrictEqual(result)
   })
-
-  // Assert the rendered text of the component
-  expect(wrapper.text()).toContain('Hello world')
+  it('expandTags ignores extra spaces', () => {
+    const tags: string = ' Foo ,    Bar       ,     Baz       '
+    const result: Array<string> = ['Foo', 'Bar', 'Baz']
+    expect(Task.expandTags(tags)).toStrictEqual(result)
+  })
+  it('expandTags ignores empty strings', () => {
+    const tags: string = 'Foo, , , Bar, Baz'
+    const result: Array<string> = ['Foo', 'Bar', 'Baz']
+    expect(Task.expandTags(tags)).toStrictEqual(result)
+  })
 })
