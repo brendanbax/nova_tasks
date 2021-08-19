@@ -72,10 +72,11 @@ class TaskList {
 
   static deleteTask(tasks: Array<ITask>, id: string): Array<ITask> {
     const index: number = this.getTaskIndex(tasks, id)
+    const arr: Array<ITask> = [...tasks]
     if (index !== -1) {
-      tasks.splice(index, 1)
+      arr.splice(index, 1)
     }
-    return tasks
+    return arr
   }
 
   static filterByStatus(tasks: Array<ITask>, status: string): Array<ITask> {
@@ -86,13 +87,19 @@ class TaskList {
 
   static filterByTags(tasks: Array<ITask>, tags: Array<string>): Array<ITask> {
     const matches: Array<ITask> = []
-    for (const tag of tags) {
-      matches.push(
-        ...tasks.filter((el: ITask) => {
-          return el.tags?.includes(tag)
-        })
-      )
+
+    for (const task of tasks) {
+      let match = 0
+      for (const tag of tags) {
+        if (task.tags?.includes(tag)) {
+          match += 1
+        }
+      }
+      if (match === tags.length) {
+        matches.push(task)
+      }
     }
+
     return matches
   }
 
