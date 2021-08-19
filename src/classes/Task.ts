@@ -25,7 +25,8 @@ class Task implements ITask {
   }
 
   static expandTags(tags: string): Array<string> {
-    return tags === '' ? [] : tags.split(',').map((el: string) => el.trim())
+    const statusList = [...new Set(tags.split(',').map((el) => el.trim()))]
+    return statusList.filter((tag) => tag !== '')
   }
 }
 
