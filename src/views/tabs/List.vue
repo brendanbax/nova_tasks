@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <button class="label light flex-row w-100" @click="toggleList">{{ toggleText }}<IconCollapse v-if="showListMenu" /><IconExpand v-else /></button>
     <div class="flex-wrap mb-2">
       <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" />

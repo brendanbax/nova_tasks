@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <TaskItem v-for="task in overdueTasks" :key="task.index" :task="task" />
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
-  <div class="app-container">
-    <div id="install-action" class="tile" v-if="showInstall">
+  <div>
+    <div id="install-action" class="tile app-container" v-if="showInstall">
       <button class="button button-primary" @click="installer()">Install</button>
       <p class="light body ml-4">Tap install to use Task Master offline.</p>
       <button id="close-btn" class="light" @click="handleClose">&times;</button>

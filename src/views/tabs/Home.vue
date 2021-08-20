@@ -1,5 +1,5 @@
 <template>
-  <div class="mosaic" v-if="taskRollups.length > 0">
+  <div class="mosaic app-container" v-if="taskRollups.length > 0">
     <TaskSummary
       v-for="(item, index) in taskRollups"
       :key="item.status"

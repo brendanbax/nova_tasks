@@ -1,5 +1,5 @@
 <template>
-  <div class="view-container">
+  <div class="view-container app-container">
     <TopBar title="Edit Task" @left="handleCancel" @right="handleSave">
       <template v-slot:left-action>Cancel</template>
       <template v-slot:right-action>Save</template>
