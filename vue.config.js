@@ -1,6 +1,6 @@
 module.exports = {
   pwa: {
-    name: 'Task Master',
+    name: 'Nova Tasks',
     themeColor: '#212731',
     display: 'standalone',
     backgroundColor: '#212731'
