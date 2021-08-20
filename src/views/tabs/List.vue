@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <button class="label light flex-row w-100" @click="toggleList">{{ toggleText }}<IconCollapse v-if="showListMenu" /><IconExpand v-else /></button>
+    <button class="label light flex-row w-100 pointer" @click="toggleList">{{ toggleText }}<IconCollapse v-if="showListMenu" /><IconExpand v-else /></button>
     <div class="flex-wrap mb-2">
       <Tag v-for="(filter, index) in activeFilters" :key="`active-option-${index}`" :text="filter" />
     </div>
@@ -9,7 +9,7 @@
       <div class="form-row">
         <div class="flex-row">
           <label for="status-filter" class="block label ml-2">Filter by Status</label>
-          <button @click.prevent="removeFilter" class="mb-2">Clear</button>
+          <button @click.prevent="removeFilter" class="mb-2 pointer">Clear</button>
         </div>
         <select v-model="activeFilter" id="status-filter" class="capitalize" @change="updateRoute">
           <option v-for="(option, index) in filterOptions" :key="`filter-option-${index}`">{{ option }}</option>
@@ -26,7 +26,7 @@
       <div class="form-row mb-5">
         <div class="flex-row">
           <label for="searchText" class="block label ml-2">Search By Tag</label>
-          <button @click.prevent="removeSearch" class="mb-2">Clear</button>
+          <button @click.prevent="removeSearch" class="mb-2 pointer">Clear</button>
         </div>
         <input id="searchText" type="text" v-model="searchText" @change="updateRoute" />
         <p class="micro helptext mt-2 ml-2">Separate tags with commas</p>

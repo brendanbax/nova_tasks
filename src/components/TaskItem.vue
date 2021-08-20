@@ -1,5 +1,5 @@
 <template>
-  <div class="tile task" @click="handleClick">
+  <div class="tile task pointer" @click="handleClick">
     <h2 class="subtitle" :class="taskClass">{{ taskTitle }}</h2>
     <div class="flex-row">
       <p class="micro mt-2" :class="taskClass" v-if="taskDue">Due: {{ taskDue }}</p>

@@ -1,13 +1,13 @@
 <template>
   <div class="title-row app-container">
     <span>
-      <button v-if="showLeft" @click="handleLeft" class="micro">
+      <button v-if="showLeft" @click="handleLeft" class="micro pointer">
         <slot name="left-action"></slot>
       </button>
     </span>
     <h1 class="subtitle center">{{ title }}</h1>
     <span class="right">
-      <button v-if="showRight" @click="handleRight" class="micro">
+      <button v-if="showRight" @click="handleRight" class="micro pointer">
         <slot name="right-action"></slot>
       </button>
     </span>

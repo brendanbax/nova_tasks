@@ -12,7 +12,7 @@
         <dd class="tag-container"></dd>
       </dl>
       <Popover :options="statusOptions" @select="updateStatus">
-        <Tag :text="status" />
+        <Tag :text="status" class="pointer" />
       </Popover>
       <dl class="mt-5">
         <dt class="label">Creation Date</dt>

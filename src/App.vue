@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="install-action" class="tile app-container" v-if="showInstall">
+    <div id="install-action" class="tile" v-if="showInstall">
       <button class="button button-primary" @click="installer()">Install</button>
       <p class="light body ml-4">Tap install to use Task Master offline.</p>
       <button id="close-btn" class="light" @click="handleClose">&times;</button>
@@ -75,9 +75,15 @@ export default Vue.extend({
   align-items: center;
   display: flex;
   margin: 0 1.5rem;
+  max-width: 768px;
   position: relative;
   top: 4rem;
   z-index: 1001;
+}
+@media screen and (min-width: 816px) {
+  #install-action {
+    margin: 0 auto;
+  }
 }
 #close-btn {
   background-color: var(--green-100);

@@ -1,5 +1,5 @@
 <template>
-  <div class="tile center light" @click="handleClick">
+  <div class="tile center light pointer" @click="handleClick">
     <h2 class="subtitle">{{ count }}</h2>
     <p class="micro capitalize">{{ category }}</p>
   </div>
