@@ -1,8 +1,8 @@
-# Task Master TODO App
+# Nova Tasks TODO App
 
 ## Project overview
 
-Task Master is a PWA written with Vue.js and TypeScript. It's a basic CRUD app for managing lists of things needing to be done.
+Nova Tasks is a PWA written with Vue.js and TypeScript. It's a basic CRUD app for managing lists of things needing to be done.
 
 ### Why Vue?
 
